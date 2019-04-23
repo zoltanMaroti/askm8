@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<table>
+    <thead>
+        <th>
+            qID
+        </th>
+        <th>
+            Submission Time
+        </th>
+        <th>
+            View Number
+        </th>
+        <th>
+            Vote Number
+        </th>
+        <th>
+            Title
+        </th>
+
+
+    </thead>
+    {% for question in questions %}
+        <tr>
+            <td>
+                {{ question.id }}
+            </td>
+            <td>
+                {{ question.submission_time }}
+            </td>
+            <td>
+                {{ question.view_number }}
+            </td>
+            <td>
+                {{ question.vote_number }}
+            </td>
+            <td>
+                <a href="question/{{ question.id }}">{{ question.title }}</a>
+            </td>
+            <td
+        </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

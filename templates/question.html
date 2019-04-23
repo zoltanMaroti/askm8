@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>{{ question.title }}</h2>
+    <p>{{ question.message }}</p>
+    <a href="{{ question.id }}/new-answer">Answer this question</a>
+
+
+{% endblock%}

@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<form action="/add-question" method="post">
+<div><input id="title" name="title" required></div>
+<textarea id="message" name="message" rows="10" cols="80" required placeholder="Write your question"></textarea>
+<div class="button">
+    <button type="submit" name="submit">Submit</button>
+</div>
+</form>
+
+{% endblock %}
