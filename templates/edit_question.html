@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div>
+        <input name="title" value="{{ question.title }}">
+    </div>
+    <textarea name="message" rows="10" cols="80">{{ question.message }}</textarea>
+    <div class="button">
+        <button type="submit" name="submit">Submit</button>
+    </div>
+{% endblock %}

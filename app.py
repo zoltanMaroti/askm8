@@ -59,6 +59,12 @@ def add_question():
         connection.write_question_to_file(new_question)
         return redirect('/')
 
+@app.route('/question/<question_id>/edit', methods=['POST', 'GET'])
+def edit_question(question_id):
+    selected_question = data_manager.get_question_id(connection.get_questions_file(), question_id)
+    return render_template('edit_question.html', question=selected_question)
+
+
 
 if __name__ == '__main__':
     app.run(
