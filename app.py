@@ -1,4 +1,7 @@
-from flask import Flask, render_template, redirect, request, url_for
+import time
+
+from flask import Flask, render_template, redirect, request
+
 import connection
 import data_manager
 import time
@@ -9,8 +12,15 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def show_all_questions():
+    selection = request.args.get('selection')
+    # order = request.args.get('order')
     questions = connection.get_questions_file()
-    return render_template('list.html', questions=questions)
+    if selection is None:
+        sorted_questions = connection.get_questions_file()
+        return render_template('list.html', questions=sorted_questions)
+    else:
+        sorted_questions = sorted(questions, key=lambda item: item[selection].lower())
+        return render_template('list.html', questions=sorted_questions)
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
@@ -33,7 +43,6 @@ def view_question(question_id):
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
-
     if request.method == 'GET':
         return render_template('add-question.html')
 
