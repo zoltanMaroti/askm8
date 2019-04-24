@@ -19,7 +19,7 @@ def view_question(question_id):
     answers = connection.get_answers_file()
     if request.method == 'POST':
         new_answer = {
-            'id': len(connection.get_answers_file()),
+            'id': len(connection.get_answers_file()), # TODO generate unique ID
             'submission_time': int(time.time()),
             'vote_number': '1',  # TODO add vote_number counting
             'question_id': question_id,
