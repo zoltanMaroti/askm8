@@ -4,6 +4,7 @@ from flask import Flask, render_template, redirect, request
 
 import connection
 import data_manager
+import time
 
 app = Flask(__name__)
 
@@ -28,7 +29,7 @@ def view_question(question_id):
     answers = connection.get_answers_file()
     if request.method == 'POST':
         new_answer = {
-            'id': len(connection.get_answers_file()),  # TODO generate unique ID
+            'id': data_manager.generate_random(answers),
             'submission_time': int(time.time()),
             'vote_number': '1',  # TODO add vote_number counting
             'question_id': question_id,
@@ -46,8 +47,9 @@ def add_question():
         return render_template('add-question.html')
 
     if request.method == 'POST':
+        questions = connection.get_questions_file()
         new_question = {
-            'id': len(connection.get_questions_file()),
+            'id': data_manager.generate_random(questions),
             'submission_time': int(time.time()),
             'view_number': '100',  # TODO add view_number counting
             'vote_number': '1',  # TODO add vote_number counting
