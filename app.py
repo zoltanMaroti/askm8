@@ -16,7 +16,8 @@ def show_all_questions():
 @app.route('/question/<question_id>')
 def view_question(question_id):
     selected_question = data_manager.get_question_id(connection.get_questions_file(), question_id)
-    return render_template('question.html', question=selected_question, title='Question')
+    answers = connection.get_answers_file()
+    return render_template('question.html', question=selected_question, title='Question', answers=answers)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
