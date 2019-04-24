@@ -19,7 +19,7 @@ def view_question(question_id):
     answers = connection.get_answers_file()
     if request.method == 'POST':
         new_answer = {
-            'id': len(connection.get_answers_file()), # TODO generate unique ID
+            'id': data_manager.generate_random(answers),
             'submission_time': int(time.time()),
             'vote_number': '1',  # TODO add vote_number counting
             'question_id': question_id,
@@ -33,12 +33,14 @@ def view_question(question_id):
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
+
     if request.method == 'GET':
         return render_template('add-question.html')
 
     if request.method == 'POST':
+        questions = connection.get_questions_file()
         new_question = {
-            'id': len(connection.get_questions_file()),
+            'id': data_manager.generate_random(questions),
             'submission_time': int(time.time()),
             'view_number': '100',  # TODO add view_number counting
             'vote_number': '1',  # TODO add vote_number counting
