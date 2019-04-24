@@ -3,7 +3,24 @@
 {% block content %}
     <h2>{{ question.title }}</h2>
     <p>{{ question.message }}</p>
-    <a href="{{ question.id }}/new-answer">Answer this question</a>
+{#    <a href="{{ question.id }}/new-answer">Answer this question</a>#}
 
+    {% for answer in answers %}
+        {% if answer.question_id == question.id %}
+        <p>
+            {{ answer.message }}
+        </p>
+        <p>
+            {{ answer.id }}
+        </p>
+        {% endif %}
+    {% endfor %}
+
+    <form method="post">
+    <textarea id="message" name="message" rows="10" cols="80" required placeholder="Answer this question"></textarea>
+    <div class="button">
+        <button type="submit" name="submit">Submit</button>
+    </div>
+    </form>
 
 {% endblock%}

@@ -1,7 +1,7 @@
 import csv
 
 QUESTION_FIELD_NAMES = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-ANSWER_FIELD_NAMES = ['id', 'submission_time', 'vote_number', 'question_id', 'message,image']
+ANSWER_FIELD_NAMES = ['id', 'submission_time', 'vote_number', 'question_id', 'message','image']
 
 
 def get_questions_file():
@@ -22,7 +22,7 @@ def write_question_to_file(question):
         csv_writer.writerow(question)
 
 
-def write_answer_to_file(question):
+def write_answer_to_file(answer):
     with open('static/answer.csv', "a") as file:
         csv_writer = csv.DictWriter(file, fieldnames=ANSWER_FIELD_NAMES)
-        csv_writer.writerow(question)
+        csv_writer.writerow(answer)
