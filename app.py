@@ -1,7 +1,9 @@
-from flask import Flask, render_template, redirect, request, url_for
+import time
+
+from flask import Flask, render_template, redirect, request
+
 import connection
 import data_manager
-import time
 
 app = Flask(__name__)
 
@@ -9,8 +11,15 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def show_all_questions():
+    selection = request.args.get('selection')
+    # order = request.args.get('order')
     questions = connection.get_questions_file()
-    return render_template('list.html', questions=questions)
+    if selection is None:
+        sorted_questions = connection.get_questions_file()
+        return render_template('list.html', questions=sorted_questions)
+    else:
+        sorted_questions = sorted(questions, key=lambda item: item[selection].lower())
+        return render_template('list.html', questions=sorted_questions)
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
@@ -19,7 +28,7 @@ def view_question(question_id):
     answers = connection.get_answers_file()
     if request.method == 'POST':
         new_answer = {
-            'id': len(connection.get_answers_file()), # TODO generate unique ID
+            'id': len(connection.get_answers_file()),  # TODO generate unique ID
             'submission_time': int(time.time()),
             'vote_number': '1',  # TODO add vote_number counting
             'question_id': question_id,
