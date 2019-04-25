@@ -11,8 +11,9 @@
         <p>
             {{ answer.message }}
         </p>
+            <a href="question/{{ question.id }}/{{ answer.id }}/vote"><button>upvote</button></a>
         <p>
-            {{ answer.id }}
+            {{ answer.id }}, {{ answer.vote }}
         </p>
         {% endif %}
     {% endfor %}
