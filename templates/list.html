@@ -2,7 +2,8 @@
 
 {% block content %}
     <a href="/add-question">Ask a question</a>
-    <form method="get">
+    <div id="selector">
+        <form method="get">
                     <select name="selection" id="selection">
                         <option id="title" name="title" value="title">Order by title</option>
                         <option id="view_number" name="view_number" value="view_number">Order by views</option>
@@ -10,16 +11,16 @@
                         <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
                     </select>
                     <button type="submit" id="submit" name="submit">Submit</button>
-    </form>
+         </form>
+    </div>
     <table>
         <form>
-            <tr>
-                <th>qID</th>
-                <th>Submission Time</th>
-                <th>View Number</th>
-                <th>Vote Number</th>
-                <th>Title</th>
-            </tr>
+            <th>qID</th>
+            <th>Submission Time</th>
+            <th>View Number</th>
+            <th>Vote Number</th>
+            <th>Title</th>
+
 
 
         {% for question in questions %}

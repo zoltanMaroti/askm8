@@ -3,6 +3,7 @@
 {% block content %}
     <h2>{{ question.title }}</h2>
     <p>{{ question.message }}</p>
+    <a href="/question/{{ question.id }}/delete"><button type="submit" id="delete" name="delete">Delete</button></a>
 {#    <a href="{{ question.id }}/new-answer">Answer this question</a>#}
 
     {% for answer in answers %}
