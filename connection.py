@@ -26,3 +26,10 @@ def write_answer_to_file(answer):
     with open('static/answer.csv', "a") as file:
         csv_writer = csv.DictWriter(file, fieldnames=ANSWER_FIELD_NAMES)
         csv_writer.writerow(answer)
+
+
+def delete_story_from_file(question):
+    with open('static/question.csv', "w") as file:
+        csv_writer = csv.DictWriter(file, fieldnames=QUESTION_FIELD_NAMES)
+        csv_writer.writeheader()
+        csv_writer.writerows(question)

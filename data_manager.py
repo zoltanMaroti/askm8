@@ -57,3 +57,11 @@ def generate_random(table):
     return generated
 
     # if nemtalal ide kell valami
+
+
+def delete_question_by_id(question_id, questions):
+    updated_questions = []
+    for question in questions:
+        if question['id'] != question_id:
+            updated_questions.append(question)
+    return updated_questions

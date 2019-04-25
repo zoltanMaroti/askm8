@@ -59,12 +59,18 @@ def add_question():
         connection.write_question_to_file(new_question)
         return redirect('/')
 
+
 @app.route('/question/<question_id>/edit', methods=['POST', 'GET'])
 def edit_question(question_id):
     selected_question = data_manager.get_question_id(connection.get_questions_file(), question_id)
     return render_template('edit_question.html', question=selected_question)
 
-
+@app.route('/question/<question_id>/delete')
+def delete_question(question_id):
+    questions = connection.get_questions_file()
+    updated_questions = data_manager.delete_question_by_id(question_id, questions)
+    connection.delete_story_from_file(updated_questions)
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(
