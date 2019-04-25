@@ -1,3 +1,20 @@
-.askm8logo{
+body{
+    background-image: url("/static/bcpic.jpg");
+    color: #47A8D3;
+}
+.container {
+    margin: auto;
+}
 
+#home th{
+    padding: 10px;
+    text-align: center;
+}
+
+#home tbody td{
+    padding: 10px;
+}
+
+#home tbody tr {
+    border: 5px solid red;
 }

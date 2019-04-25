@@ -1,7 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <a href="/add-question">Ask a question</a>
+    <div id="askbutton">
+        <a href="/add-question">Ask a question</a>
+    </div>
     <div id="selector">
         <form method="get">
                     <select name="selection" id="selection">
@@ -13,37 +15,41 @@
                     <button type="submit" id="submit" name="submit">Submit</button>
          </form>
     </div>
-    <table>
-        <form>
-            <th>qID</th>
-            <th>Submission Time</th>
-            <th>View Number</th>
-            <th>Vote Number</th>
-            <th>Title</th>
-
-
-
-        {% for question in questions %}
+    <table id="home">
+        <thead>
             <tr>
-                <td>
-                    {{ question.id }}
-                </td>
-                <td>
-                    {{ question.submission_time }}
-                </td>
-                <td>
-                    {{ question.view_number }}
-                </td>
-                <td>
-                    {{ question.vote_number }}
-                </td>
-                <td>
-                    <a href="question/{{ question.id }}">{{ question.title }}</a>
-                </td>
-                <td
+                <th>qID</th>
+                <th>Submission Time</th>
+                <th>View Number</th>
+                <th>Vote Number</th>
+                <th>Title</th>
             </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+                <div class="post">
+                    <tr>
+                        <td>
+                            {{ question.id }}
+                        </td>
+                        <td>
+                            {{ timestamps[loop.index0] }}
+                        </td>
+                        <td>
+                            {{ question.view_number }}
+                        </td>
+                        <td>
+                            {{ question.vote_number }}
+                        </td>
+                        <td>
+                            <a href="question/{{ question.id }}">{{ question.title }}</a>
+                        </td>
+                        <td
+                    </tr>
+                </div>
 
-        {% endfor %}
+            {% endfor %}
+        </tbody>
     </table>
 
 {% endblock %}
