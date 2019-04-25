@@ -1,5 +1,6 @@
 import connection
 import random
+from datetime import datetime
 
 def pass_questions():
     ord_dict = connection.get_questions_file()
@@ -9,7 +10,7 @@ def pass_questions():
         question['submission_time'] = int(question['submission_time'])
 
     return ord_dict
-from datetime import datetime
+
 
 def get_question_id(questions, question_id):
     for question in questions:
@@ -71,3 +72,12 @@ def convert_timestamp(questions):
     for question in questions:
         timestamps.append(datetime.fromtimestamp(question['submission_time']).strftime('%Y-%m-%d %H:%M:%S'))
     return timestamps
+
+
+def convert_numbers_to_int(ord_dict):
+    for question in ord_dict:
+        question['vote_number'] = int(question['vote_number'])
+        question['view_number'] = int(question['view_number'])
+        question['submission_time'] = int(question['submission_time'])
+
+    return ord_dict

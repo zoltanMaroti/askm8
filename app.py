@@ -5,7 +5,6 @@ from flask import Flask, render_template, redirect, request
 import connection
 import data_manager
 import time
-from datetime import datetime
 
 app = Flask(__name__)
 
@@ -16,12 +15,15 @@ def show_all_questions():
     selection = request.args.get('selection')
     # order = request.args.get('order')
     questions = connection.get_questions_file()
-    timestamps = data_manager.convert_timestamp(questions)
     if selection is None:
         sorted_questions = connection.get_questions_file()
+        converted_questions = data_manager.convert_numbers_to_int(sorted_questions)
+        timestamps = data_manager.convert_timestamp(converted_questions)
         return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
     else:
         sorted_questions = sorted(questions, key=lambda item: item[selection].lower())
+        converted_questions = data_manager.convert_numbers_to_int(sorted_questions)
+        timestamps = data_manager.convert_timestamp(converted_questions)
         return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
 
 
@@ -49,13 +51,13 @@ def add_question():
         return render_template('add-question.html')
 
     if request.method == 'POST':
-        questions = data_manager.pass_questions()
+        questions = connection.get_questions_file()
         new_question = {
             'id': data_manager.generate_random(questions),
             'submission_time': int(time.time()),
             'view_number': '100',  # TODO add view_number counting
             'vote_number': '1',  # TODO add vote_number counting
-            'title': request.form['title'].title(),
+            'title': request.form['title'],
             'message': request.form['message']
         }
         connection.write_question_to_file(new_question)

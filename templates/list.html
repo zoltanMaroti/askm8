@@ -22,16 +22,13 @@
             <th>Title</th>
 
 
-
         {% for question in questions %}
             <tr>
                 <td>
                     {{ question.id }}
                 </td>
                 <td>
-                    {% for time in timestamps %}
-                    {{ time }}
-                    {% endfor %}
+                        {{ timestamps[loop.index0] }}
                 </td>
                 <td>
                     {{ question.view_number }}
