@@ -2,6 +2,7 @@ import connection
 import random
 from datetime import datetime
 
+
 def pass_questions():
     ord_dict = connection.get_questions_file()
     for question in ord_dict:
@@ -26,7 +27,6 @@ def get_ids(odered_dic):
 
 
 def generate_random(table):
-
     SPECIALCHARS = "!@#$%^&*()[]:,.<>?"
     NUMBERS = '0123456789'
     LETTERS = 'abcdefghijklmnopqrtuvwxyz'
@@ -55,8 +55,6 @@ def generate_random(table):
             unique = True
 
     return generated
-
-
 
 
 def delete_question_by_id(question_id, questions):

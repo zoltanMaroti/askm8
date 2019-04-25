@@ -1,7 +1,7 @@
 import csv
 
 QUESTION_FIELD_NAMES = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-ANSWER_FIELD_NAMES = ['id', 'submission_time', 'vote_number', 'question_id', 'message','image']
+ANSWER_FIELD_NAMES = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'vote', 'image']
 
 
 def get_questions_file():

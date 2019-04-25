@@ -1,28 +1,31 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <h2>{{ question.title }}</h2>
-    <p>{{ question.message }}</p>
-    <a href="/question/{{ question.id }}/delete"><button type="submit" id="delete" name="delete">Delete</button></a>
-{#    <a href="{{ question.id }}/new-answer">Answer this question</a>#}
-
-    {% for answer in answers %}
-        {% if answer.question_id == question.id %}
-        <p>
-            {{ answer.message }}
-        </p>
-            <a href="question/{{ question.id }}/{{ answer.id }}/vote"><button>upvote</button></a>
-        <p>
-            {{ answer.id }}, {{ answer.vote }}
-        </p>
-        {% endif %}
-    {% endfor %}
-
-    <form method="post">
-    <textarea id="message" name="message" rows="10" cols="80" required placeholder="Answer this question"></textarea>
-    <div class="button">
-        <button type="submit" name="submit">Submit</button>
+    <div class="question">
+        <h2>{{ question.title }}</h2>
+        <p>{{ question.message }}</p>
+        <a href="/question/{{ question.id }}/delete"><button type="submit" id="delete" name="delete">Delete</button></a>
     </div>
-    </form>
+    <div class="answers">
+        {% for answer in answers %}
+            {% if answer.question_id == question.id %}
+            <p>
+                {{ answer.message }}
+            </p>
+                <a href="question/{{ question.id }}/{{ answer.id }}/vote"><button>upvote</button></a>
+            <p>
+                {{ answer.id }}, {{ answer.vote }}
+            </p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div id="comment">
+        <form method="post">
+        <textarea id="message" name="message" rows="10" cols="80" required placeholder="Answer this question"></textarea>
+        <div class="button">
+            <button type="submit" name="submit">Submit</button>
+        </div>
+        </form>
+    </div>
 
 {% endblock%}

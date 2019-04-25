@@ -1,20 +1,107 @@
 body{
     background-image: url("/static/bcpic.jpg");
-    color: #47A8D3;
+    color:  #86BBD8;
 }
+
+header a{
+    color: #B4E33D;
+}
+
+a{
+    color: #0DAB76;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #81C14B;
+}
+
+.askm8logo {
+    width: 100%;
+    background: rgba(71, 168, 211, 0.2);
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+}
+
 .container {
     margin: auto;
+}
+
+.question{
+    background: rgba(32, 110, 245, 0.2);
+}
+
+#submit_sort{
+    border-style: none;
+    background: rgba(42, 114, 33, 0.3);
+    color: #16DB65;
+}
+
+#submit_sort:hover{
+    background-color: rgb(42, 114, 33);
+    color: #0D2818;
+}
+
+#selection{
+    border-style: none;
+    background: rgba(42, 114, 33, 0.3);
+    color:#16DB65;
+}
+
+#homenav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#homenav li{
+    float: left;
+    list-style: none;
+    padding: 10px;
+}
+
+#add_question{
+    border-style: none;
+    background: rgba(42, 114, 33, 0.3);
+}
+
+#add_question a{
+    color: #16DB65;
+}
+
+#add_question:hover{
+    background-color: rgb(42, 114, 33);
+}
+
+#add_question a:hover{
+    color: #0D2818;
 }
 
 #home th{
     padding: 10px;
     text-align: center;
+    color: #91CB3E;
 }
 
 #home tbody td{
     padding: 10px;
+    background: rgba(13, 33, 161, 0.2);
 }
 
-#home tbody tr {
-    border: 5px solid red;
+#home thead{
+    width: 100%;
+    background: rgba(67, 185, 41, 0.2);
+}
+
+#delete{
+    border-style: none;
+    background: rgba(42, 114, 33, 0.3);
+    color:#16DB65;
+}
+
+#delete:hover{
+    background-color: rgb(42, 114, 33);
+    color: #0D2818;
 }
