@@ -49,13 +49,13 @@ def add_question():
         return render_template('add-question.html')
 
     if request.method == 'POST':
-        questions = connection.get_questions_file()
+        questions = data_manager.pass_questions()
         new_question = {
             'id': data_manager.generate_random(questions),
             'submission_time': int(time.time()),
             'view_number': '100',  # TODO add view_number counting
             'vote_number': '1',  # TODO add vote_number counting
-            'title': request.form['title'],
+            'title': request.form['title'].title(),
             'message': request.form['message']
         }
         connection.write_question_to_file(new_question)

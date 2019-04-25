@@ -1,5 +1,14 @@
 import connection
 import random
+
+def pass_questions():
+    ord_dict = connection.get_questions_file()
+    for question in ord_dict:
+        question['vote_number'] = int(question['vote_number'])
+        question['view_number'] = int(question['view_number'])
+        question['submission_time'] = int(question['submission_time'])
+
+    return ord_dict
 from datetime import datetime
 
 def get_question_id(questions, question_id):
@@ -14,18 +23,8 @@ def get_ids(odered_dic):
         ids.append(item['id'])
     return ids
 
+
 def generate_random(table):
-    """
-    Generates random and unique string. Used for id/key generation:
-         - at least 2 special characters (except: ';'), 2 number, 2 lower and 2 upper case character
-         - it must be unique in the table (first value in every row is the id)
-
-    Args:
-        table (list): Data table to work on. First columns containing the keys.
-
-    Returns:
-        string: Random and unique string
-    """
 
     SPECIALCHARS = "!@#$%^&*()[]:,.<>?"
     NUMBERS = '0123456789'
@@ -56,7 +55,7 @@ def generate_random(table):
 
     return generated
 
-    # if nemtalal ide kell valami
+
 
 
 def delete_question_by_id(question_id, questions):
