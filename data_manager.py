@@ -9,6 +9,7 @@ def pass_questions():
         question['submission_time'] = int(question['submission_time'])
 
     return ord_dict
+from datetime import datetime
 
 def get_question_id(questions, question_id):
     for question in questions:
@@ -63,3 +64,10 @@ def delete_question_by_id(question_id, questions):
         if question['id'] != question_id:
             updated_questions.append(question)
     return updated_questions
+
+
+def convert_timestamp(questions):
+    timestamps = []
+    for question in questions:
+        timestamps.append(datetime.fromtimestamp(question['submission_time']).strftime('%Y-%m-%d %H:%M:%S'))
+    return timestamps

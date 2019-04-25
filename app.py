@@ -5,6 +5,7 @@ from flask import Flask, render_template, redirect, request
 import connection
 import data_manager
 import time
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -14,13 +15,14 @@ app = Flask(__name__)
 def show_all_questions():
     selection = request.args.get('selection')
     # order = request.args.get('order')
-    questions = data_manager.pass_questions()
+    questions = connection.get_questions_file()
+    timestamps = data_manager.convert_timestamp(questions)
     if selection is None:
         sorted_questions = connection.get_questions_file()
-        return render_template('list.html', questions=sorted_questions)
+        return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
     else:
-        sorted_questions = sorted(questions, key=lambda item: item[selection])
-        return render_template('list.html', questions=sorted_questions)
+        sorted_questions = sorted(questions, key=lambda item: item[selection].lower())
+        return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
