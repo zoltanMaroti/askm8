@@ -1,24 +1,26 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+    <a href="/add-question">Ask a question</a>
+    <form method="get">
+                    <select name="selection" id="selection">
+                        <option id="title" name="title" value="title">Order by title</option>
+                        <option id="view_number" name="view_number" value="view_number">Order by views</option>
+                        <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
+                        <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
+                    </select>
+                    <button type="submit" id="submit" name="submit">Submit</button>
+    </form>
     <table>
         <form>
-            <th>qID</th>
-            <th>Submission Time</th>
-            <th>View Number</th>
-            <th>Vote Number</th>
-            <th>Title</th>
-            <th>
-                <form method="get">
-                <select name="selection" id="selection">
-                    <option id="title" name="title" value="title">Order by title</option>
-                    <option id="view_number" name="view_number" value="view_number">Order by views</option>
-                    <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
-                    <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
-                </select>
-                </th>
-                <th><button type="submit" id="submit" name="submit">Submit</button></th>
-                </form>
+            <tr>
+                <th>qID</th>
+                <th>Submission Time</th>
+                <th>View Number</th>
+                <th>Vote Number</th>
+                <th>Title</th>
+            </tr>
+
 
         {% for question in questions %}
             <tr>

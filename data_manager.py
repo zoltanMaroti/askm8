@@ -2,6 +2,16 @@ import connection
 import random
 
 
+def pass_questions():
+    ord_dict = connection.get_questions_file()
+    for question in ord_dict:
+        question['vote_number'] = int(question['vote_number'])
+        question['view_number'] = int(question['view_number'])
+        question['submission_time'] = int(question['submission_time'])
+
+    return ord_dict
+
+
 def get_question_id(questions, question_id):
     for question in questions:
         if question_id == question['id']:
@@ -13,6 +23,7 @@ def get_ids(odered_dic):
     for item in odered_dic:
         ids.append(item['id'])
     return ids
+
 
 def generate_random(table):
     """

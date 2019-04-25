@@ -11,14 +11,15 @@
 </head>
 <body>
     <div class="container">
-        <div class="askm8logo"
-        {% if title %}
-            <header><a href="/">AskM8 - {{ title }}</a></header>
-        {% else %}
-            <header><a href="/">Kekm8 Welcome to AskM8!</a></header>
-        {% endif %}
-    <a href="/add-question">Ask a question</a>
-        {% block content %} {% endblock %}
+        <div class="askm8logo">
+            {% if title %}
+                <header><a href="/">AskM8 - {{ title }}</a></header>
+            {% else %}
+                <header><a href="/">Kekm8 Welcome to AskM8!</a></header>
+            {% endif %}
+        </div>
+            {% block content %} {% endblock %}
+
 
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

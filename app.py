@@ -14,12 +14,12 @@ app = Flask(__name__)
 def show_all_questions():
     selection = request.args.get('selection')
     # order = request.args.get('order')
-    questions = connection.get_questions_file()
+    questions = data_manager.pass_questions()
     if selection is None:
-        sorted_questions = connection.get_questions_file()
+        sorted_questions = data_manager.pass_questions()
         return render_template('list.html', questions=sorted_questions)
     else:
-        sorted_questions = sorted(questions, key=lambda item: item[selection].lower())
+        sorted_questions = sorted(questions, key=lambda item: item[selection])
         return render_template('list.html', questions=sorted_questions)
 
 
@@ -53,17 +53,17 @@ def add_question():
             'submission_time': int(time.time()),
             'view_number': '100',  # TODO add view_number counting
             'vote_number': '1',  # TODO add vote_number counting
-            'title': request.form['title'],
+            'title': request.form['title'].title(),
             'message': request.form['message']
         }
         connection.write_question_to_file(new_question)
         return redirect('/')
 
+
 @app.route('/question/<question_id>/edit', methods=['POST', 'GET'])
 def edit_question(question_id):
     selected_question = data_manager.get_question_id(connection.get_questions_file(), question_id)
     return render_template('edit_question.html', question=selected_question)
-
 
 
 if __name__ == '__main__':
