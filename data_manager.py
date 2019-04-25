@@ -9,7 +9,6 @@ def pass_questions():
         question['vote_number'] = int(question['vote_number'])
         question['view_number'] = int(question['view_number'])
         question['submission_time'] = int(question['submission_time'])
-
     return ord_dict
 
 
@@ -27,6 +26,7 @@ def get_ids(odered_dic):
 
 
 def generate_random(table):
+
     SPECIALCHARS = "!@#$%^&*()[]:,.<>?"
     NUMBERS = '0123456789'
     LETTERS = 'abcdefghijklmnopqrtuvwxyz'
@@ -72,10 +72,9 @@ def convert_timestamp(questions):
     return timestamps
 
 
-def convert_numbers_to_int(ord_dict):
-    for question in ord_dict:
+def convert_numbers_to_int(questions):
+    for question in questions:
         question['vote_number'] = int(question['vote_number'])
         question['view_number'] = int(question['view_number'])
         question['submission_time'] = int(question['submission_time'])
-
-    return ord_dict
+    return questions

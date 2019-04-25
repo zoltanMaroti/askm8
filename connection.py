@@ -10,7 +10,7 @@ def get_questions_file():
         return list(csv_reader)
 
 
-def get_answers_file():
+def get_answers_from_file():
     with open('static/answer.csv') as file:
         csv_reader = csv.DictReader(file)
         return list(csv_reader)
