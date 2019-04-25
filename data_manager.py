@@ -14,18 +14,8 @@ def get_ids(odered_dic):
         ids.append(item['id'])
     return ids
 
+
 def generate_random(table):
-    """
-    Generates random and unique string. Used for id/key generation:
-         - at least 2 special characters (except: ';'), 2 number, 2 lower and 2 upper case character
-         - it must be unique in the table (first value in every row is the id)
-
-    Args:
-        table (list): Data table to work on. First columns containing the keys.
-
-    Returns:
-        string: Random and unique string
-    """
 
     SPECIALCHARS = "!@#$%^&*()[]:,.<>?"
     NUMBERS = '0123456789'
