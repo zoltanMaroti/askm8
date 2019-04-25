@@ -26,7 +26,9 @@
                     {{ question.id }}
                 </td>
                 <td>
-                    {{ question.submission_time }}
+                    {% for time in timestamps %}
+                    {{ time }}
+                    {% endfor %}
                 </td>
                 <td>
                     {{ question.view_number }}
