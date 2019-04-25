@@ -14,13 +14,17 @@ app = Flask(__name__)
 def show_all_questions():
     selection = request.args.get('selection')
     # order = request.args.get('order')
-    questions = data_manager.pass_questions()
+    questions = connection.get_questions_file()
     if selection is None:
         sorted_questions = connection.get_questions_file()
-        return render_template('list.html', questions=sorted_questions)
+        converted_questions = data_manager.convert_numbers_to_int(sorted_questions)
+        timestamps = data_manager.convert_timestamp(converted_questions)
+        return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
     else:
-        sorted_questions = sorted(questions, key=lambda item: item[selection])
-        return render_template('list.html', questions=sorted_questions)
+        sorted_questions = sorted(questions, key=lambda item: item[selection].lower())
+        converted_questions = data_manager.convert_numbers_to_int(sorted_questions)
+        timestamps = data_manager.convert_timestamp(converted_questions)
+        return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
@@ -33,7 +37,8 @@ def view_question(question_id):
             'submission_time': int(time.time()),
             'vote_number': '1',  # TODO add vote_number counting
             'question_id': question_id,
-            'message': request.form['message']
+            'message': request.form['message'],
+            'vote': 0
         }
         connection.write_answer_to_file(new_answer)
         return redirect(request.url)
@@ -47,13 +52,13 @@ def add_question():
         return render_template('add-question.html')
 
     if request.method == 'POST':
-        questions = data_manager.pass_questions()
+        questions = connection.get_questions_file()
         new_question = {
             'id': data_manager.generate_random(questions),
             'submission_time': int(time.time()),
             'view_number': '100',  # TODO add view_number counting
             'vote_number': '1',  # TODO add vote_number counting
-            'title': request.form['title'].title(),
+            'title': request.form['title'],
             'message': request.form['message']
         }
         connection.write_question_to_file(new_question)
@@ -65,12 +70,23 @@ def edit_question(question_id):
     selected_question = data_manager.get_question_id(connection.get_questions_file(), question_id)
     return render_template('edit_question.html', question=selected_question)
 
+
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id):
     questions = connection.get_questions_file()
     updated_questions = data_manager.delete_question_by_id(question_id, questions)
     connection.delete_story_from_file(updated_questions)
     return redirect('/')
+
+
+@app.route('/question/<question_id>/<answer_id>/vote')
+def vote_answer(question_id,answer_id):
+    answers = connection.get_answers_file()
+    for answer in answers:
+        if answer['id'] == answer_id:
+            answer['vote'] = str(int(answer['vote']) + 1)
+    return redirect('/question/<question_id>')
+
 
 if __name__ == '__main__':
     app.run(
