@@ -1,7 +1,7 @@
 import csv
 
 QUESTION_FIELD_NAMES = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-ANSWER_FIELD_NAMES = ['id', 'submission_time', 'vote_number', 'question_id', 'message','image']
+ANSWER_FIELD_NAMES = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'vote', 'image']
 
 
 def get_questions_file():
@@ -10,7 +10,7 @@ def get_questions_file():
         return list(csv_reader)
 
 
-def get_answers_file():
+def get_answers_from_file():
     with open('static/answer.csv') as file:
         csv_reader = csv.DictReader(file)
         return list(csv_reader)

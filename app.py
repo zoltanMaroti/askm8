@@ -1,7 +1,4 @@
-import time
-
 from flask import Flask, render_template, redirect, request
-
 import connection
 import data_manager
 import time
@@ -12,16 +9,16 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def show_all_questions():
-    selection = request.args.get('selection')
-    # order = request.args.get('order')
+    order_selection = request.args.get('selection')
     questions = connection.get_questions_file()
-    if selection is None:
-        sorted_questions = connection.get_questions_file()
-        converted_questions = data_manager.convert_numbers_to_int(sorted_questions)
+
+    if order_selection is None:
+        converted_questions = data_manager.convert_numbers_to_int(questions)
         timestamps = data_manager.convert_timestamp(converted_questions)
-        return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
+        return render_template('list.html', questions=questions, timestamps=timestamps)
+
     else:
-        sorted_questions = sorted(questions, key=lambda item: item[selection].lower())
+        sorted_questions = sorted(questions, key=lambda item: item[order_selection].lower())
         converted_questions = data_manager.convert_numbers_to_int(sorted_questions)
         timestamps = data_manager.convert_timestamp(converted_questions)
         return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
@@ -30,7 +27,8 @@ def show_all_questions():
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
 def view_question(question_id):
     selected_question = data_manager.get_question_id(connection.get_questions_file(), question_id)
-    answers = connection.get_answers_file()
+    answers = connection.get_answers_from_file()
+
     if request.method == 'POST':
         new_answer = {
             'id': data_manager.generate_random(answers),
@@ -42,6 +40,7 @@ def view_question(question_id):
         }
         connection.write_answer_to_file(new_answer)
         return redirect(request.url)
+
     elif request.method == 'GET':
         return render_template('question.html', question=selected_question, title='Question', answers=answers)
 

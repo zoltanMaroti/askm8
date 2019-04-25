@@ -2,13 +2,13 @@ import connection
 import random
 from datetime import datetime
 
+
 def pass_questions():
     ord_dict = connection.get_questions_file()
     for question in ord_dict:
         question['vote_number'] = int(question['vote_number'])
         question['view_number'] = int(question['view_number'])
         question['submission_time'] = int(question['submission_time'])
-
     return ord_dict
 
 
@@ -57,8 +57,6 @@ def generate_random(table):
     return generated
 
 
-
-
 def delete_question_by_id(question_id, questions):
     updated_questions = []
     for question in questions:
@@ -74,10 +72,9 @@ def convert_timestamp(questions):
     return timestamps
 
 
-def convert_numbers_to_int(ord_dict):
-    for question in ord_dict:
+def convert_numbers_to_int(questions):
+    for question in questions:
         question['vote_number'] = int(question['vote_number'])
         question['view_number'] = int(question['view_number'])
         question['submission_time'] = int(question['submission_time'])
-
-    return ord_dict
+    return questions
