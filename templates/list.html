@@ -3,15 +3,15 @@
 {% block content %}
     <nav id="homenav">
         <ul>
-            <li><button id="add_question"><a href="/add-question">Ask a question</a></button></li>
+            <li><button class="button"><a href="/add-question">Ask a question</a></button></li>
             <li><form method="get">
-                        <select name="selection" id="selection">
+                        <select name="selection" class="button">
                             <option id="title" name="title" value="title">Order by title</option>
                             <option id="view_number" name="view_number" value="view_number">Order by views</option>
                             <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
                             <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
                         </select>
-                        <button type="submit" id="submit_sort" name="submit">Submit</button>
+                        <button type="submit" class="button" name="submit">Submit</button>
                 </form>
             </li>
         </ul>

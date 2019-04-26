@@ -4,7 +4,7 @@ body{
 }
 
 header a{
-    color: #B4E33D;
+    color: #258e0e;
 }
 
 a{
@@ -18,10 +18,11 @@ a:hover {
 
 .askm8logo {
     width: 100%;
-    background: rgba(71, 168, 211, 0.2);
+    background: rgba(12, 116, 137, 0.5);
     text-align: center;
     width: 100%;
     font-size: 20px;
+    border: 1px solid #53599A;
 }
 
 .container {
@@ -30,23 +31,54 @@ a:hover {
 
 .question{
     background: rgba(32, 110, 245, 0.2);
+    padding: 10px;
 }
 
-#submit_sort{
+.question h2{
+    font-size: 30px;
+    color: #B4E33D;
+}
+
+.question p{
+    font-size: 20px;
+    color:  #0DAB76;
+}
+
+.answers{
+    background: rgba(12, 116, 137, 0.2);
+}
+
+.answer{
+    border: 1px solid #84CAE7;
+    padding: 5px;
+}
+
+.answer_mssg{
+    padding: 5px;
+    color: #9EE493;
+}
+
+.footer_info{
+    padding: 5px;
+    font-size: 15px;
+    color: #98C1D9;
+}
+
+.button{
     border-style: none;
     background: rgba(42, 114, 33, 0.3);
     color: #16DB65;
 }
 
-#submit_sort:hover{
+.button:hover{
     background-color: rgb(42, 114, 33);
     color: #0D2818;
 }
 
-#selection{
+.button a{
     border-style: none;
     background: rgba(42, 114, 33, 0.3);
-    color:#16DB65;
+    color: #16DB65;
 }
 
 #homenav ul {
@@ -60,23 +92,6 @@ a:hover {
     float: left;
     list-style: none;
     padding: 10px;
-}
-
-#add_question{
-    border-style: none;
-    background: rgba(42, 114, 33, 0.3);
-}
-
-#add_question a{
-    color: #16DB65;
-}
-
-#add_question:hover{
-    background-color: rgb(42, 114, 33);
-}
-
-#add_question a:hover{
-    color: #0D2818;
 }
 
 #home th{
@@ -95,13 +110,17 @@ a:hover {
     background: rgba(67, 185, 41, 0.2);
 }
 
-#delete{
-    border-style: none;
-    background: rgba(42, 114, 33, 0.3);
-    color:#16DB65;
+#message{
+    border: 1px solid #84CAE7;
+    background: rgba(12, 116, 137, 0.2);
+    color: #9EE493;
+    resize: none;
 }
 
-#delete:hover{
-    background-color: rgb(42, 114, 33);
-    color: #0D2818;
+#comment{
+    margin-top: 10px;
+}
+
+#edit{
+    padding: 10px;
 }

@@ -42,13 +42,13 @@ def view_question(question_id):
         return redirect(request.url)
 
     elif request.method == 'GET':
-        return render_template('question.html', question=selected_question, title='Question', answers=answers)
+        return render_template('question.html', question=selected_question, title='Question', answers=answers, question_id=question_id)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
     if request.method == 'GET':
-        return render_template('add-question.html')
+        return render_template('add-question.html', title='Ask Something')
 
     if request.method == 'POST':
         questions = connection.get_questions_file()
@@ -67,7 +67,7 @@ def add_question():
 @app.route('/question/<question_id>/edit', methods=['POST', 'GET'])
 def edit_question(question_id):
     selected_question = data_manager.get_question_id(connection.get_questions_file(), question_id)
-    return render_template('edit_question.html', question=selected_question)
+    return render_template('edit_question.html', question=selected_question, title='Edit')
 
 
 @app.route('/question/<question_id>/delete')

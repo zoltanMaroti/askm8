@@ -4,27 +4,28 @@
     <div class="question">
         <h2>{{ question.title }}</h2>
         <p>{{ question.message }}</p>
-        <a href="/question/{{ question.id }}/delete"><button type="submit" id="delete" name="delete">Delete</button></a>
+        <a href="/question/{{question_id}}/edit"><button class="button">Edit</button> </a>
+        <a href="/question/{{ question.id }}/delete"><button type="submit" class="button" name="delete">Delete</button></a>
     </div>
     <div class="answers">
         {% for answer in answers %}
             {% if answer.question_id == question.id %}
-            <p>
-                {{ answer.message }}
-            </p>
-                <a href="question/{{ question.id }}/{{ answer.id }}/vote"><button>upvote</button></a>
-            <p>
-                {{ answer.id }}, {{ answer.vote }}
-            </p>
+                <div class="answer">
+                    <p class="answer_mssg">
+                        {{ answer.message }}
+                    </p>
+                        <a href="question/{{ question.id }}/{{ answer.id }}/vote"><button class="button">upvote</button></a>
+                    <p class="footer_info">
+                        {{ answer.id }}, {{ answer.vote }}
+                    </p>
+                </div>
             {% endif %}
         {% endfor %}
     </div>
     <div id="comment">
         <form method="post">
-        <textarea id="message" name="message" rows="10" cols="80" required placeholder="Answer this question"></textarea>
-        <div class="button">
-            <button type="submit" name="submit">Submit</button>
-        </div>
+            <textarea id="message" name="message" rows="5" cols="80" required placeholder="Answer this question"></textarea>
+            <button class="button" type="submit" name="submit">Submit</button>
         </form>
     </div>
 
