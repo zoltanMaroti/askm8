@@ -12,16 +12,13 @@ def show_all_questions():
     order_selection = request.args.get('selection')
     questions = connection.get_questions_file()
 
-    if order_selection is None:
-        converted_questions = data_manager.convert_numbers_to_int(questions)
-        timestamps = data_manager.convert_timestamp(converted_questions)
-        return render_template('list.html', questions=questions, timestamps=timestamps)
+    if order_selection is not None:
+        questions = sorted(questions, key=lambda item: item[order_selection].lower())
 
-    else:
-        sorted_questions = sorted(questions, key=lambda item: item[order_selection].lower())
-        converted_questions = data_manager.convert_numbers_to_int(sorted_questions)
-        timestamps = data_manager.convert_timestamp(converted_questions)
-        return render_template('list.html', questions=sorted_questions, timestamps=timestamps)
+    questions = data_manager.convert_numbers_to_int(questions)
+
+    timestamps = data_manager.convert_timestamp(questions)
+    return render_template('list.html', questions=questions, timestamps=timestamps)
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
