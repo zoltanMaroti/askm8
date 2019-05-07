@@ -28,9 +28,11 @@
                 <div id="title">
                     <h2><a href="question/{{ question.id }}">{{ question.title }}</a></h2>
                 </div>
-
-            {% endfor %}
-        </tbody>
-    </table>
+                <div id="info">
+                    <p>Time</p>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
 
 {% endblock %}
