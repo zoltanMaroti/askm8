@@ -56,6 +56,16 @@ def view_question(question_id):
         answers = data_manager.get_answers()
         return render_template('question.html', question=selected_question, answers=answers)
 
+    elif request.method == 'POST':
+        new_answer = {
+            'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'vote_number': 0,
+            'question_id': question_id,
+            'message': request.form['message'],
+        }
+        data_manager.add_new_answer(new_answer)
+        return redirect(request.url)
+
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():

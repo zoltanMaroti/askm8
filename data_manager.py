@@ -116,6 +116,16 @@ def add_new_question(cursor, detail):
                    """,
                    detail)
 
+
+@connection.connection_handler
+def add_new_answer(cursor, detail):
+    cursor.execute("""
+                    INSERT INTO answer (submission_time, vote_number, question_id, message) 
+                    VALUES (%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s)
+                    """,
+                   detail)
+
+
 @connection.connection_handler
 def delete_question(cursor, id):
     cursor.execute("""
@@ -123,6 +133,7 @@ def delete_question(cursor, id):
                     WHERE id = %(id)s;
                     """,
                    {'id': id})
+     #TODO make it work with any table
 
 
 @connection.connection_handler
