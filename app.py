@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, request
+from datetime import datetime
 import connection
 import data_manager
 import time
@@ -63,6 +64,7 @@ def add_question():
 
     if request.method == 'POST':
         new_question = {
+            'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'view_number': 100,  # TODO add view_number counting
             'vote_number': 1,  # TODO add vote_number counting
             'title': request.form['title'],

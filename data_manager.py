@@ -111,8 +111,8 @@ def get_selected_question(cursor, id):
 @connection.connection_handler
 def add_new_question(cursor, detail):
     cursor.execute("""
-                   INSERT INTO question (view_number, vote_number, title, message)
-                   VALUES (%(view_number)s, %(vote_number)s, %(title)s, %(message)s)
+                   INSERT INTO question (submission_time, view_number, vote_number, title, message)
+                   VALUES (%(submission_time)s, %(view_number)s, %(vote_number)s, %(title)s, %(message)s)
                    """,
-                   {'view_number': detail['view_number'],
+                   {'submission_time': detail['submission_time'], 'view_number': detail['view_number'],
                     'vote_number': detail['vote_number'], 'title': detail['title'], 'message': detail['message']})
