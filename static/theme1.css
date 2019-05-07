@@ -1,0 +1,111 @@
+/*General*/
+body{
+    background-image: url("bg1.jpg");
+    background-size: cover;
+    margin: 5px;
+    font-family: sans-serif;
+}
+
+a{
+    color: #95A3A4;
+    text-decoration: none;
+}
+
+/*Layout*/
+
+.header{
+    display: grid;
+    grid-template-columns: 90% 10%;
+    text-align: center;
+    grid-template-rows: 2em;
+    grid-column-gap: 10px;
+}
+
+.header div{
+    background-color: #3D315B;
+}
+/*-logo*/
+#logo{
+    margin: auto;
+}
+/*TODO Whyyyyyyyyyyyyy???*/
+
+
+/*List.html*/
+
+.grid{
+    padding-top: 10px;
+    display: grid;
+    grid-template-rows: minmax(2em, auto);
+    grid-row-gap: 10px;
+}
+
+#content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: black;
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#info{
+    color: #95A3A4;
+    margin: auto;
+}
+
+/*-navbar*/
+#nav div{
+    background-color: #3D315B;
+}
+
+
+#nav{
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align:center;
+    grid-template-rows: 2em;
+    grid-column-gap: 10px;
+}
+
+/*QuestionPage*/
+
+.answer{
+    background-color: black;
+    color: #95A3A4;
+    padding: 5px;
+}
+
+#question{
+    background-color: #3D315B;
+    color: #ffffff;
+    padding: 10px;
+}   /*TODO felkesz szar*/
+
+#answers{
+    margin-top: 10px;
+    display: grid;
+    grid-row-gap: 10px;
+}
+
+
+/*Common*/
+#message{
+    resize: none;
+    margin-top: 10px;
+    background-color: #190B28;
+    color: #95A3A4;
+    border-style: none;
+}
+
+.button{
+    background-color: #190B28;
+    color: #ffffff;
+    border-style: none;
+}
+
+.button a{
+    color: #ffffff;
+}
+

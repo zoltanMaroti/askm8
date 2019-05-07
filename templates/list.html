@@ -1,52 +1,32 @@
 {% extends 'layout.html' %}
-
 {% block content %}
-    <nav id="homenav">
-        <ul>
-            <li><button class="button"><a href="/add-question">Ask a question</a></button></li>
-            <li><form method="get">
-                        <select name="selection" class="button">
-                            <option id="title" name="title" value="title">Order by title</option>
-                            <option id="view_number" name="view_number" value="view_number">Order by views</option>
-                            <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
-                            <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
-                        </select>
-                        <button type="submit" class="button" name="submit">Submit</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
-
-    <table id="home">
-        <thead>
-            <tr>
-                <th>qID</th>
-                <th>Submission Time</th>
-                <th>View Number</th>
-                <th>Vote Number</th>
-                <th>Title</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for question in questions %}
-                <div class="post">
-                    <tr>
-                        <td>
-                            {{ question.id }}
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            {{ question.view_number }}
-                        </td>
-                        <td>
-                            {{ question.vote_number }}
-                        </td>
-                        <td>
-                            <a href="question/{{ question.id }}">{{ question.title }}</a>
-                        </td>
-                        <td
-                    </tr>
+    <!-- Buttons -->
+    <div id="nav">
+        <div>
+            <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
+        </div>
+        <div id="order">
+            <form method="get">
+                <div>
+                    <select name="selection" class="button" id="orderselect">
+                    <option id="title" name="title" value="title">Order by title</option>
+                    <option id="view_number" name="view_number" value="view_number">Order by views</option>
+                    <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
+                    <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="button" id="submit" type="submit" name="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--The whole shit-->
+    <div class="grid">
+         {% for question in questions %}
+            <div id="content">
+                <div id="title">
+                    <h2><a href="question/{{ question.id }}">{{ question.title }}</a></h2>
                 </div>
 
             {% endfor %}
