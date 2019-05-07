@@ -67,7 +67,7 @@ def add_question():
 @app.route('/question/<question_id>/edit', methods=['POST', 'GET'])
 def edit_question(question_id):
     selected_question = data_manager.get_question_id(connection.get_questions_file(), question_id)
-    return render_template('edit_question.html', question=selected_question, title='Edit')
+    return render_template('edit-question.html', question=selected_question, title='Edit')
 
 
 @app.route('/question/<question_id>/delete')

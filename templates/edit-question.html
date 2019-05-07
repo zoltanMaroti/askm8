@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="edit">
+        <div id="title">
+            <input id="textbox" name="title" value="{{ question.title }}">
+        </div>
+        <div id="textarea">
+            <textarea id="message" name="message" rows="5" cols="80">{{ question.message }}</textarea>
+        </div>
+        <div class="button" id="submit">
+            <button class="button" type="submit" name="submit">Submit</button>
+        </div>
+    </div>
+{% endblock %}
