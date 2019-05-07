@@ -124,3 +124,12 @@ def delete_question(cursor, id):
                     """,
                    {'id': id})
 
+
+@connection.connection_handler
+def edit_question(cursor, id, title, message):
+    cursor.execute("""
+                   UPDATE question
+                   SET title = %(title)s, message = %(message)s
+                   WHERE id = %(id)s;
+                   """,
+                   {'id': id, 'title': title, 'message': message})

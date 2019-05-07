@@ -80,6 +80,14 @@ def delete_question(question_id):
     return redirect('/')
 
 
+@app.route('/question/<question_id>/edit', methods=['POST', 'GET'])
+def edit_question(question_id):
+    selected_question = data_manager.get_selected_question(question_id)
+    if request.method == 'POST':
+        data_manager.edit_question(question_id, request.form['title'], request.form['message'])
+        return  redirect('/list')
+    return render_template('edit-question.html', question=selected_question)
+
 """
 @app.route('/question/<question_id>/edit', methods=['POST', 'GET'])
 def edit_question(question_id):
