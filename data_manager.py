@@ -115,3 +115,12 @@ def add_new_question(cursor, detail):
                    VALUES (%(submission_time)s, %(view_number)s, %(vote_number)s, %(title)s, %(message)s)
                    """,
                    detail)
+
+@connection.connection_handler
+def delete_question(cursor, id):
+    cursor.execute("""
+                    DELETE FROM question
+                    WHERE id = %(id)s;
+                    """,
+                   {'id': id})
+
