@@ -1,20 +1,22 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <div id="askbutton">
-        <a href="/add-question">Ask a question</a>
-    </div>
-    <div id="selector">
-        <form method="get">
-                    <select name="selection" id="selection">
-                        <option id="title" name="title" value="title">Order by title</option>
-                        <option id="view_number" name="view_number" value="view_number">Order by views</option>
-                        <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
-                        <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
-                    </select>
-                    <button type="submit" id="submit" name="submit">Submit</button>
-         </form>
-    </div>
+    <nav id="homenav">
+        <ul>
+            <li><button class="button"><a href="/add-question">Ask a question</a></button></li>
+            <li><form method="get">
+                        <select name="selection" class="button">
+                            <option id="title" name="title" value="title">Order by title</option>
+                            <option id="view_number" name="view_number" value="view_number">Order by views</option>
+                            <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
+                            <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
+                        </select>
+                        <button type="submit" class="button" name="submit">Submit</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
     <table id="home">
         <thead>
             <tr>
@@ -33,7 +35,6 @@
                             {{ question.id }}
                         </td>
                         <td>
-                            {{ timestamps[loop.index0] }}
                         </td>
                         <td>
                             {{ question.view_number }}

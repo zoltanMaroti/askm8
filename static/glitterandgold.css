@@ -1,20 +1,126 @@
 body{
     background-image: url("/static/bcpic.jpg");
-    color: #47A8D3;
+    color:  #86BBD8;
 }
+
+header a{
+    color: #258e0e;
+}
+
+a{
+    color: #0DAB76;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #81C14B;
+}
+
+.askm8logo {
+    width: 100%;
+    background: rgba(12, 116, 137, 0.5);
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+    border: 1px solid #53599A;
+}
+
 .container {
     margin: auto;
+}
+
+.question{
+    background: rgba(32, 110, 245, 0.2);
+    padding: 10px;
+}
+
+.question h2{
+    font-size: 30px;
+    color: #B4E33D;
+}
+
+.question p{
+    font-size: 20px;
+    color:  #0DAB76;
+}
+
+.answers{
+    background: rgba(12, 116, 137, 0.2);
+}
+
+.answer{
+    border: 1px solid #84CAE7;
+    padding: 5px;
+}
+
+.answer_mssg{
+    padding: 5px;
+    color: #9EE493;
+}
+
+.footer_info{
+    padding: 5px;
+    font-size: 15px;
+    color: #98C1D9;
+}
+
+.button{
+    border-style: none;
+    background: rgba(42, 114, 33, 0.3);
+    color: #16DB65;
+}
+
+.button:hover{
+    background-color: rgb(42, 114, 33);
+    color: #0D2818;
+}
+
+.button a{
+    border-style: none;
+    background: rgba(42, 114, 33, 0.3);
+    color: #16DB65;
+}
+
+#homenav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#homenav li{
+    float: left;
+    list-style: none;
+    padding: 10px;
 }
 
 #home th{
     padding: 10px;
     text-align: center;
+    color: #91CB3E;
 }
 
 #home tbody td{
     padding: 10px;
+    background: rgba(13, 33, 161, 0.2);
 }
 
-#home tbody tr {
-    border: 5px solid red;
+#home thead{
+    width: 100%;
+    background: rgba(67, 185, 41, 0.2);
+}
+
+#message{
+    border: 1px solid #84CAE7;
+    background: rgba(12, 116, 137, 0.2);
+    color: #9EE493;
+    resize: none;
+}
+
+#comment{
+    margin-top: 10px;
+}
+
+#edit{
+    padding: 10px;
 }

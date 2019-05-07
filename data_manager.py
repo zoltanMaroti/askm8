@@ -1,8 +1,6 @@
 import connection
-import random
-from datetime import datetime
 
-
+'''
 def pass_questions():
     ord_dict = connection.get_questions_file()
     for question in ord_dict:
@@ -78,3 +76,43 @@ def convert_numbers_to_int(questions):
         question['view_number'] = int(question['view_number'])
         question['submission_time'] = int(question['submission_time'])
     return questions
+'''
+
+
+@connection.connection_handler
+def get_questions(cursor):
+    cursor.execute("""
+                    SELECT * FROM question;
+                   """)
+    questions = cursor.fetchall()
+    return questions
+
+
+@connection.connection_handler
+def get_answers(cursor):
+    cursor.execute("""
+                   SELECT * FROM answer;
+                   """)
+    answers = cursor.fetchall()
+    return answers
+
+
+@connection.connection_handler
+def get_selected_question(cursor, id):
+    cursor.execute("""
+                   SELECT * FROM question
+                   WHERE id = %(id)s;
+                   """,
+                   {'id': id})
+    selected_question = cursor.fetchone()
+    return selected_question
+
+
+@connection.connection_handler
+def add_new_question(cursor, detail):
+    cursor.execute("""
+                   INSERT INTO question (view_number, vote_number, title, message)
+                   VALUES (%(view_number)s, %(vote_number)s, %(title)s, %(message)s)
+                   """,
+                   {'view_number': detail['view_number'],
+                    'vote_number': detail['vote_number'], 'title': detail['title'], 'message': detail['message']})
