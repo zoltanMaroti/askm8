@@ -45,7 +45,7 @@ def view_question(question_id):
         new_answer = {
             'id': data_manager.generate_random(answers),
             'submission_time': int(time.time()),
-            'vote_number': '1',  # TODO add vote_number counting
+            'vote_number': '1',
             'question_id': question_id,
             'message': request.form['message'],
             'vote': 0
@@ -91,6 +91,16 @@ def add_question():
         }
         data_manager.add_new_question(new_question)
         return redirect('/')
+
+
+@app.route('/question/<question_id>/<answer_id>/edit', methods=['GET', 'POST'])
+def edit_answer(question_id, answer_id):
+    selected_question = data_manager.get_selected_question(question_id)
+    selected_answer = data_manager.get_selected_answer(answer_id)
+    if request.method == 'POST':
+        data_manager.edit_answer(answer_id, request.form['message'])
+        return redirect('/question/'+ question_id)
+    return render_template('edit-answer.html', question=selected_question, answer=selected_answer)
 
 
 @app.route('/question/<question_id>/delete')

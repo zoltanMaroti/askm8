@@ -49,6 +49,17 @@ def get_selected_question(cursor, id):
 
 
 @connection.connection_handler
+def get_selected_answer(cursor, id):
+    cursor.execute('''
+                    SELECT * FROM answer
+                    WHERE id = %(id)s;
+                    ''',
+                   {'id': id})
+    selected_answer = cursor.fetchone()
+    return selected_answer
+
+
+@connection.connection_handler
 def add_new_question(cursor, detail):
     cursor.execute("""
                    INSERT INTO question (submission_time, view_number, vote_number, title, message)
@@ -64,6 +75,15 @@ def add_new_answer(cursor, detail):
                     VALUES (%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s)
                     """,
                    detail)
+
+
+@connection.connection_handler
+def edit_answer(cursor, id, message):
+    cursor.execute("""
+                    UPDATE answer
+                    SET message = %(message)s
+                    WHERE id = %(id)s;""",
+                   {'id': id, 'message': message})
 
 
 @connection.connection_handler
