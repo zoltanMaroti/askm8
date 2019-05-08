@@ -29,6 +29,15 @@ def get_answers(cursor):
 
 
 @connection.connection_handler
+def get_comments(cursor):
+    cursor.execute("""
+                    SELECT * FROM comment;
+                    """)
+    comments = cursor.fetchall()
+    return comments
+
+
+@connection.connection_handler
 def get_selected_question(cursor, id):
     cursor.execute("""
                    SELECT * FROM question
@@ -66,6 +75,15 @@ def add_new_answer(cursor, detail):
                     VALUES (%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s)
                     """,
                    detail)
+
+
+@connection.connection_handler
+def add_new_comment(cursor, detail):
+    cursor.execute("""
+                    INSERT INTO comment (question_id, message, submission_time, edited_number)
+                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s);
+                    """,
+                    detail)
 
 
 @connection.connection_handler

@@ -23,7 +23,8 @@ def view_question(question_id):
     if request.method == 'GET':
         selected_question = data_manager.get_selected_question(question_id)
         answers = data_manager.get_answers()
-        return render_template('question.html', question=selected_question, answers=answers)
+        comments = data_manager.get_comments()
+        return render_template('question.html', question=selected_question, answers=answers, comments=comments)
 
     elif request.method == 'POST':
         new_answer = {
@@ -85,11 +86,18 @@ def show_result():
         return render_template("result.html", results=result)
 
 
-@app.route('/question/<question_id>/new-comment')
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_comment(question_id):
     selected_question = data_manager.get_selected_question(question_id)
     if request.method == 'POST':
-        return 'get rekt'
+        new_comment = {
+                        'question_id': question_id,
+                        'message': request.form['message'],
+                        'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                        'edited_number': 0
+        }
+        data_manager.add_new_comment(new_comment)
+        return redirect('/question/' + question_id)
     return render_template("add-comment.html", question=selected_question)
 
 
