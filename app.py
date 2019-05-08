@@ -9,12 +9,11 @@ app = Flask(__name__)
 @app.route('/list', methods=['GET', 'POST'])
 def show_all_questions():
     if request.method == 'GET':
-        questions = data_manager.sort_questions('submission_time', 'DESC')
-        return render_template('list.html', questions=questions)
-
+        questions = data_manager.sort_questions('submission_time', 'DESC', limit='limited')
+        return render_template('list.html', questions=questions, selection='submission_time', order='DESC')
     elif request.method == 'POST':
-        questions = data_manager.sort_questions(request.form['selection'], request.form['order'])
-        return render_template('list.html', questions=questions)
+        questions = data_manager.sort_questions(request.form['selection'], request.form['order'], limit='limited')
+        return render_template('list.html', questions=questions, selection=request.form['selection'], order=request.form['order'])
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
@@ -105,6 +104,17 @@ def upvote_answer(question_id, answer_id, vote_number):
     upvoted = int(vote_number) + 1
     data_manager.upvote_answer(answer_id, vote_number=upvoted)
     return redirect(request.referrer)
+
+
+@app.route('/list/unlimit/<selection>/<order>')
+def unlimited(selection, order):
+    if request.method == 'GET':
+        questions = data_manager.sort_questions('submission_time', 'DESC', limit='unlimited')
+        return render_template('list.html', questions=questions, selection='submission_time', order='DESC')
+    elif request.method == 'POST':
+        questions = data_manager.sort_questions(request.form['selection'], request.form['order'], limit='unlimited')
+        return render_template('list.html', questions=questions, selection=selection, order=order)
+
 
 
 if __name__ == '__main__':

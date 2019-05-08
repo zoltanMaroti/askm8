@@ -12,12 +12,19 @@ def get_questions(cursor):
 
 
 @connection.connection_handler
-def sort_questions(cursor, selection, order):
-    cursor.execute(sql.SQL("""SELECT * FROM question 
-                              ORDER BY {selection} {order}
-                                LIMIT 5;""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
-    questions = cursor.fetchall()
-    return questions
+def sort_questions(cursor, selection, order, limit):
+    if limit == 'limited':
+        cursor.execute(sql.SQL("""SELECT * FROM question 
+                                  ORDER BY {selection} {order}
+                                    LIMIT 5;""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
+        questions = cursor.fetchall()
+        return questions
+    elif limit == 'unlimited':
+        cursor.execute(sql.SQL("""SELECT * FROM question 
+                                         ORDER BY {selection} {order};""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
+        questions = cursor.fetchall()
+        return questions
+
 
 @connection.connection_handler
 def sort_answers(cursor, selection, order):
