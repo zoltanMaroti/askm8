@@ -10,6 +10,9 @@
                 <a href="/question/{{question.id}}/edit"><button class="button">Edit</button></a>
                 <a href="/question/{{ question.id }}/delete"><button type="submit" class="button" name="delete">Delete</button></a>
             </div>
+            <div>
+                <a href="/question/{{ question.id }}/new-comment"><button class="button">Comment</button></a>
+            </div>
         </div>
         <div id="answers">
                 {% for answer in answers %}

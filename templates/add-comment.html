@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div>
+        <h1>Kek you comment</h1>
+    </div>
+    <div>
+        <h2>{{ question.title }}</h2>
+        <p>{{ question.message }}</p>
+    </div>
+    <form action="/question/{{ question.id }}/new-comment" method="post">
+        <div>
+            <textarea id="message" name="message" rows="5" cols="50" placeholder="Comment goes here"></textarea>
+        </div>
+        <div>
+            <button class="button" id="submit" type="submit" name="submit">Submit</button>
+        </div>
+    </form>
+
+{% endblock %}
