@@ -23,6 +23,16 @@
             <div>
                 <button class="button" id="theme">Theme</button>
             </div>
+            <div id="nav">
+                <div>
+                    <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
+                </div>
+                <div>
+                    <form action="/result" id="search" name="search" method="post">
+                        <input id="search" name="search" type="text" placeholder="Search by name...">
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="content_block">
             {% block content %} {% endblock %}

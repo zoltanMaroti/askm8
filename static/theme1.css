@@ -1,14 +1,18 @@
 /*General*/
 body{
-    background-image: url("bg1.jpg");
+    background-image: url("wbg3.jpg");
     background-size: cover;
     margin: 5px;
     font-family: sans-serif;
 }
 
 a{
-    color: #95A3A4;
+    color: #eeeeee;
     text-decoration: none;
+}
+
+a:hover{
+    color: #2A7221;
 }
 
 .content_block{
@@ -26,16 +30,15 @@ a{
 }
 
 .header div{
-    background-color: #3D315B;
+    background-color: #2A7221;
 }
-/*-logo*/
-#logo{
-    margin: auto;
-}
-/*TODO Whyyyyyyyyyyyyy???*/
-
 
 /*List.html*/
+
+#home{
+    display: grid;
+    text-align: center;
+}
 
 .grid{
     padding-top: 10px;
@@ -66,7 +69,7 @@ a{
 
 /*-navbar*/
 #nav div{
-    background-color: #3D315B;
+    background-color: #1E441E;
 }
 
 
@@ -88,7 +91,7 @@ a{
 }
 
 #question{
-    background-color: #3D315B;
+    background-color: #1E441E;
     color: #ffffff;
     padding: 10px;
 }   /*TODO felkesz szar*/
@@ -104,13 +107,13 @@ a{
 #message{
     resize: none;
     margin-top: 10px;
-    background-color: #190B28;
+    background-color: #1E441E;
     color: #95A3A4;
     border-style: none;
 }
 
 .button{
-    background-color: #190B28;
+    background-color: #1E441E;
     color: #ffffff;
     border-style: none;
 }

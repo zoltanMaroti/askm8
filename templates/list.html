@@ -1,59 +1,57 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <!-- Buttons -->
-    <div id="nav">
+    <div id="home">
+        <!-- Buttons -->
         <div>
-            <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
-            <form action="/result" id="search" name="search" method="post">
-            <input id="search" name="search" type="text" placeholder="Search by name...">
-        </form>
-        </div>
-
-        <div id="order">
             <form action="/list" method="post">
-                <div>
-                    <select name="selection" class="button" id="orderselect">
-                    <option id="title" name="title" value="title">Order by title</option>
-                    <option id="view_number" name="view_number" value="view_number">Order by views</option>
-                    <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
-                    <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
-                    </select>
-                    <select name="order" class="button" id="orderselect">
-                    <option id="ASC" name="ASC" value="ASC">Ascending</option>
-                    <option id="DESC" name="DESC" value="DESC">Descending</option>
-                    </select>
+                <div id="order_butt">
+                    <div>
+                        <select name="selection" class="button" id="orderselect">
+                            <option id="title" name="title" value="title">Order by title</option>
+                            <option id="view_number" name="view_number" value="view_number">Order by views</option>
+                            <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
+                            <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="order" class="button" id="orderselect">
+                            <option id="ASC" name="ASC" value="ASC">Ascending</option>
+                            <option id="DESC" name="DESC" value="DESC">Descending</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="button" id="submit" type="submit" name="submit">Submit</button>
+                    </div>
                 </div>
-                <div>
-                    <button class="button" id="submit" type="submit" name="submit">Submit</button>
-                </div>
+
             </form>
         </div>
-    </div>
-    <!--The whole shit-->
-    <div class="grid">
-         {% for question in questions %}
-            <div id="content">
-                <div id="title">
-                    <h2><a href="question/{{ question.id }}">{{ question.title }}</a></h2>
+        <!--The whole shit-->
+        <div class="grid">
+             {% for question in questions %}
+                <div id="content">
+                    <div id="title">
+                        <h2><a href="question/{{ question.id }}">{{ question.title }}</a></h2>
+                    </div>
+                    <div id="info">
+                        <div>
+                            <p> {{  question.submission_time }} </p>
+                        </div>
+                        <div>
+                            <p>{{ question.vote_number }}</p>
+                        </div>
+                        <div>
+                            <p>{{ question.view_number }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div id="info">
-                    <div>
-                        <p> {{  question.submission_time }} </p>
-                    </div>
-                    <div>
-                        <p>{{ question.vote_number }}</p>
-                    </div>
-                    <div>
-                        <p>{{ question.view_number }}</p>
-                    </div>
-                </div>
+            {% endfor %}
+            {% if limit %}
+            <div id="readmore">
+                <button class="button", id="unlimit", type="button"><a href="/list/unlimited">Unlimit</a></button>
             </div>
-        {% endfor %}
-        {% if limit %}
-        <div id="readmore">
-            <button class="button", id="unlimit", type="button"><a href="/list/unlimited">Unlimit</a></button>
-        </div>
-        {% endif %}
-        </div>
+            {% endif %}
+            </div>
+    </div>
 
 {% endblock %}
