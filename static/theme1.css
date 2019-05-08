@@ -108,4 +108,6 @@ a{
 .button a{
     color: #ffffff;
 }
-
+#ascending {
+    font-size: 26px;
+}

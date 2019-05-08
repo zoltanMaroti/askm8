@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 
 @app.route('/')
-@app.route('/list')
 def show_all_questions():
 
     """
@@ -24,8 +23,15 @@ def show_all_questions():
     return render_template('list.html', questions=questions, timestamps=timestamps)
     """
 
+
     questions = data_manager.get_questions()
     return render_template('list.html', questions=questions)
+
+@app.route('/list', methods=['GET', 'POST'])
+def sort_questions():
+    if request.method == 'POST':
+        sorted_questions = data_manager.sort_questions(request.form['selection'], request.form['order'])
+    return render_template('list.html', questions=sorted_questions)
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
@@ -50,6 +56,9 @@ def view_question(question_id):
     elif request.method == 'GET':
         return render_template('question.html', question=selected_question, title='Question', answers=answers, question_id=question_id)
     """
+
+
+
 
     if request.method == 'GET':
         selected_question = data_manager.get_selected_question(question_id)
@@ -86,7 +95,7 @@ def add_question():
 
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id):
-    data_manager.delete_question(question_id)
+    data_manager.delete_question_and_answer(question_id)
     return redirect('/')
 
 
