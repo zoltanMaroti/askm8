@@ -121,9 +121,19 @@ def get_result(cursor, question):
 
 
 @connection.connection_handler
-def upvote(cursor, id, vote_number):
+def upvote_question(cursor, id, vote_number):
     cursor.execute("""
                        UPDATE question
+                       SET vote_number = %(vote_number)s
+                       WHERE id = %(id)s;
+                       """,
+                   {'id': id, 'vote_number': vote_number})
+
+
+@connection.connection_handler
+def upvote_answer(cursor, id, vote_number):
+    cursor.execute("""
+                       UPDATE answer
                        SET vote_number = %(vote_number)s
                        WHERE id = %(id)s;
                        """,

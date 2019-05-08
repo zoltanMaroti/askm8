@@ -96,7 +96,14 @@ def add_comment(question_id):
 @app.route('/question/<question_id>/<vote_number>')
 def upvote_question(question_id, vote_number):
     upvoted = int(vote_number) + 1
-    data_manager.upvote(question_id, vote_number=upvoted)
+    data_manager.upvote_question(question_id, vote_number=upvoted)
+    return redirect(request.referrer)
+
+
+@app.route('/question/<question_id>/<answer_id>/<vote_number>')
+def upvote_answer(question_id, answer_id, vote_number):
+    upvoted = int(vote_number) + 1
+    data_manager.upvote_answer(answer_id, vote_number=upvoted)
     return redirect(request.referrer)
 
 
