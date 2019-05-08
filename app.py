@@ -85,6 +85,14 @@ def show_result():
         return render_template("result.html", results=result)
 
 
+@app.route('/question/<question_id>/new-comment')
+def add_comment(question_id):
+    selected_question = data_manager.get_selected_question(question_id)
+    if request.method == 'POST':
+        return 'get rekt'
+    return render_template("add-comment.html", question=selected_question)
+
+
 if __name__ == '__main__':
     app.run(
         debug=True

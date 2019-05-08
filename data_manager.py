@@ -96,10 +96,25 @@ def edit_question(cursor, id, title, message):
                    {'id': id, 'title': title, 'message': message})
 
 
+'''
 @connection.connection_handler
 def get_result(cursor, question):
     question = '%' + question + '%'
     cursor.execute("""SELECT * FROM question 
                               WHERE title LIKE %(question)s ;""", {"question": question})
+    questions = cursor.fetchall()
+    return questions
+'''
+
+
+@connection.connection_handler
+def get_result(cursor, question):
+    question = '%' + question + '%'
+    cursor.execute("""SELECT q.title, q.message, a.message FROM
+                    (SELECT title, message FROM question
+                    WHERE title LIKE %(question)s) AS q,
+                    (SELECT message FROM answer
+                    WHERE message LIKE %(question)s) AS a
+                    ;""", {"question": question})
     questions = cursor.fetchall()
     return questions
