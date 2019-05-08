@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/list', methods=['GET', 'POST'])
 def show_all_questions():
     if request.method == 'GET':
-        questions = data_manager.get_questions()
+        questions = data_manager.sort_questions('submission_time', 'DESC')
         return render_template('list.html', questions=questions)
 
     elif request.method == 'POST':
@@ -22,7 +22,7 @@ def view_question(question_id):
 
     if request.method == 'GET':
         selected_question = data_manager.get_selected_question(question_id)
-        answers = data_manager.get_answers()
+        answers = data_manager.sort_answers('submission_time', 'ASC')
         return render_template('question.html', question=selected_question, answers=answers)
 
     elif request.method == 'POST':

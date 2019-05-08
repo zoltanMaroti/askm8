@@ -18,6 +18,12 @@ def sort_questions(cursor, selection, order):
     questions = cursor.fetchall()
     return questions
 
+@connection.connection_handler
+def sort_answers(cursor, selection, order):
+    cursor.execute(sql.SQL("""SELECT * FROM answer
+                              ORDER BY {selection} {order};""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
+    questions = cursor.fetchall()
+    return questions
 
 @connection.connection_handler
 def get_answers(cursor):
