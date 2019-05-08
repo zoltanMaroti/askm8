@@ -13,17 +13,36 @@
         </div>
         <div id="answers">
                 {% for answer in answers %}
-                {% if answer.question_id == question.id %}
-                    <div class="answer">
-                        <p class="answer_mssg">
-                            {{ answer.message }}
-                        </p>
+                    {% if answer.question_id == question.id -%}
+                        <div class="answer">
+                            <p class="answer_mssg">
+                                {{ answer.message }}
+                            </p>
+                                <a href="question/{{ question.id }}/{{ answer.id }}/vote"><button class="button">upvote</button></a>
+                            <p class="footer_info">
+                                {{ answer.id }}, {{ answer.vote }}, {{ answer.submission_time }}
+                            </p>
+                        </div>
+                        <div>
+                            <a href="/question/{{question.id}}/{{ answer.id }}/edit"><button class="button">edit</button></a>
+                        </div>
+                    {% elif answer.id == edit_id -%}
+                        <form action="/question/{{ question.id }}/{{ answer.id }}/edit" method="post">
+                        <div class="answer">
+
+                        <div id="textarea">
+                            <textarea id="answer" name="edited_answer" rows="5" cols="5">{{ answer.message }}</textarea>
+                        </div>
                             <a href="question/{{ question.id }}/{{ answer.id }}/vote"><button class="button">upvote</button></a>
                         <p class="footer_info">
                             {{ answer.id }}, {{ answer.vote }}, {{ answer.submission_time }}
                         </p>
-                    </div>
-                    {% endif %}
+                        </div>
+                        <div>
+                            <a href="/question/{{question.id}}"><button class="button">save</button></a>
+                        </div>
+                        </form>
+                    {%- endif %}
                 {% endfor %}
         </div>
         <div id="post_answer">

@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div>
+        <h2>Question:</h2>
+        <p>{{ question.title }}</p>
+        <p>{{ question.message }}</p>
+        <h4>answer id: {{ edit_id }}</h4>
+    </div>
+    <form action="/question/{{ question.id }}/{{ answer.id }}/edit" method="post">
+        <div>
+            <textarea id="message" name="message" rows="2" cols="50">{{ answer.message }}</textarea>
+        </div>
+        <div>
+            <button class="button" id="submit" type="submit" name="submit">submit</button>
+        </div>
+    </form>
+{% endblock %}
