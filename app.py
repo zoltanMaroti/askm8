@@ -78,6 +78,13 @@ def edit_question(question_id):
     return render_template('edit-question.html', question=selected_question)
 
 
+@app.route('/result', methods=['GET', 'POST'])
+def show_result():
+    if request.method == 'POST':
+        result = data_manager.get_result(request.form['search'])
+        return render_template("result.html", results=result)
+
+
 if __name__ == '__main__':
     app.run(
         debug=True

@@ -4,7 +4,11 @@
     <div id="nav">
         <div>
             <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
+            <form action="/result" id="search" name="search" method="post">
+            <input id="search" name="search" type="text" placeholder="Search by name...">
+        </form>
         </div>
+
         <div id="order">
             <form action="/list" method="post">
                 <div>
