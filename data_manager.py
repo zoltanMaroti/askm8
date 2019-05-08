@@ -29,6 +29,15 @@ def get_answers(cursor):
 
 
 @connection.connection_handler
+def get_comments(cursor):
+    cursor.execute("""
+                    SELECT * FROM comment;
+                    """)
+    comments = cursor.fetchall()
+    return comments
+
+
+@connection.connection_handler
 def get_selected_question(cursor, id):
     cursor.execute("""
                    SELECT * FROM question
@@ -69,6 +78,15 @@ def add_new_answer(cursor, detail):
 
 
 @connection.connection_handler
+def add_new_comment(cursor, detail):
+    cursor.execute("""
+                    INSERT INTO comment (question_id, message, submission_time, edited_number)
+                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s);
+                    """,
+                    detail)
+
+
+@connection.connection_handler
 def edit_answer(cursor, id, message):
     cursor.execute("""
                     UPDATE answer
@@ -96,11 +114,26 @@ def edit_question(cursor, id, title, message):
                    {'id': id, 'title': title, 'message': message})
 
 
+'''
 @connection.connection_handler
 def get_result(cursor, question):
     question = '%' + question + '%'
     cursor.execute("""SELECT * FROM question 
                               WHERE title LIKE %(question)s ;""", {"question": question})
+    questions = cursor.fetchall()
+    return questions
+'''
+
+
+@connection.connection_handler
+def get_result(cursor, question):
+    question = '%' + question + '%'
+    cursor.execute("""SELECT q.title, q.message, a.message FROM
+                    (SELECT title, message FROM question
+                    WHERE title LIKE %(question)s) AS q,
+                    (SELECT message FROM answer
+                    WHERE message LIKE %(question)s) AS a
+                    ;""", {"question": question})
     questions = cursor.fetchall()
     return questions
 

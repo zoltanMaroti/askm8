@@ -10,6 +10,23 @@
                 <a href="/question/{{question.id}}/edit"><button class="button">Edit</button></a>
                 <a href="/question/{{ question.id }}/delete"><button type="submit" class="button" name="delete">Delete</button></a>
             </div>
+            <div>
+                <a href="/question/{{ question.id }}/new-comment"><button class="button">Comment</button></a>
+            </div>
+        </div>
+        <div id="comments">
+            {% for comment in comments %}
+                {% if comment.question_id == question.id %}
+                    <div class="comment">
+                        <p class="comment_mssg">
+                            {{ comment.message }}
+                        </p>
+                        <p class="footer_info">
+                            {{ comment.submission_time }}
+                        </p>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
         <div id="answers">
                 {% for answer in answers %}

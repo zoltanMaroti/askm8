@@ -24,7 +24,8 @@ def view_question(question_id):
         data_manager.view_counter(question_id)
         selected_question = data_manager.get_selected_question(question_id)
         answers = data_manager.get_answers()
-        return render_template('question.html', question=selected_question, answers=answers)
+        comments = data_manager.get_comments()
+        return render_template('question.html', question=selected_question, answers=answers, comments=comments)
 
     elif request.method == 'POST':
         new_answer = {
@@ -85,6 +86,21 @@ def show_result():
         questions = data_manager.get_questions()
         result = data_manager.get_result(request.form['search'])
         return render_template("result.html", results=result, questions=questions)
+
+
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+def add_comment(question_id):
+    selected_question = data_manager.get_selected_question(question_id)
+    if request.method == 'POST':
+        new_comment = {
+                        'question_id': question_id,
+                        'message': request.form['message'],
+                        'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                        'edited_number': 0
+        }
+        data_manager.add_new_comment(new_comment)
+        return redirect('/question/' + question_id)
+    return render_template("add-comment.html", question=selected_question)
 
 
 if __name__ == '__main__':

@@ -11,6 +11,10 @@ a{
     text-decoration: none;
 }
 
+.content_block{
+    margin-top: 10px;
+}
+
 /*Layout*/
 
 .header{
