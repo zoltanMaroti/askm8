@@ -10,10 +10,16 @@ app = Flask(__name__)
 def show_all_questions():
     if request.method == 'GET':
         questions = data_manager.sort_questions('submission_time', 'DESC', limit='limited')
-        return render_template('list.html', questions=questions, selection='submission_time', order='DESC')
+        return render_template('list.html', questions=questions, selection='submission_time', order='DESC', limit='limited')
     elif request.method == 'POST':
-        questions = data_manager.sort_questions(request.form['selection'], request.form['order'], limit='limited')
+        questions = data_manager.sort_questions(request.form['selection'], request.form['order'], limit='unlimited')
         return render_template('list.html', questions=questions, selection=request.form['selection'], order=request.form['order'])
+
+
+@app.route('/list/unlimited')
+def list_unlimited():
+    questions = data_manager.sort_questions('submission_time', 'DESC', limit='unlimited')
+    return render_template('list.html', questions=questions, selection='submission_time', order='DESC')
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
@@ -22,7 +28,7 @@ def view_question(question_id):
     if request.method == 'GET':
         selected_question = data_manager.get_selected_question(question_id)
         answers = data_manager.sort_answers('submission_time', 'ASC')
-        return render_template('question.html', question=selected_question, answers=answers)
+        return render_template('question.html', question=selected_question, answers=answers, title='Question')
 
     elif request.method == 'POST':
         new_answer = {
@@ -59,7 +65,7 @@ def edit_answer(question_id, answer_id):
     if request.method == 'POST':
         data_manager.edit_answer(answer_id, request.form['message'])
         return redirect('/question/' + question_id)
-    return render_template('edit-answer.html', question=selected_question, answer=selected_answer)
+    return render_template('edit-answer.html', question=selected_question, answer=selected_answer, title='Edit Answer')
 
 
 @app.route('/question/<question_id>/delete')
@@ -74,14 +80,14 @@ def edit_question(question_id):
     if request.method == 'POST':
         data_manager.edit_question(question_id, request.form['title'], request.form['message'])
         return redirect('/list')
-    return render_template('edit-question.html', question=selected_question)
+    return render_template('edit-question.html', question=selected_question, title='Edit Question')
 
 
 @app.route('/result', methods=['GET', 'POST'])
 def show_result():
     if request.method == 'POST':
         result = data_manager.get_result(request.form['search'])
-        return render_template("result.html", results=result)
+        return render_template("result.html", results=result, title='Results')
 
 
 @app.route('/question/<question_id>/new-comment')
@@ -89,7 +95,7 @@ def add_comment(question_id):
     selected_question = data_manager.get_selected_question(question_id)
     if request.method == 'POST':
         return 'get rekt'
-    return render_template("add-comment.html", question=selected_question)
+    return render_template("add-comment.html", question=selected_question, title='Add Comment')
 
 
 @app.route('/question/<question_id>/<vote_number>')
@@ -104,17 +110,6 @@ def upvote_answer(question_id, answer_id, vote_number):
     upvoted = int(vote_number) + 1
     data_manager.upvote_answer(answer_id, vote_number=upvoted)
     return redirect(request.referrer)
-
-
-@app.route('/list/unlimit/<selection>/<order>')
-def unlimited(selection, order):
-    if request.method == 'GET':
-        questions = data_manager.sort_questions('submission_time', 'DESC', limit='unlimited')
-        return render_template('list.html', questions=questions, selection='submission_time', order='DESC')
-    elif request.method == 'POST':
-        questions = data_manager.sort_questions(request.form['selection'], request.form['order'], limit='unlimited')
-        return render_template('list.html', questions=questions, selection=selection, order=order)
-
 
 
 if __name__ == '__main__':

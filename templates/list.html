@@ -48,10 +48,12 @@
                     </div>
                 </div>
             </div>
-    {% endfor %}
+        {% endfor %}
+        {% if limit %}
         <div id="readmore">
-            <button class="button", id="unlimit", type="button"><a href="/list/unlimit/{{ selection }}/{{ order }}">Unlimit</a></button>
+            <button class="button", id="unlimit", type="button"><a href="/list/unlimited">Unlimit</a></button>
         </div>
-    </div>
+        {% endif %}
+        </div>
 
 {% endblock %}

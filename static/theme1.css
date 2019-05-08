@@ -44,6 +44,10 @@ a{
     grid-row-gap: 10px;
 }
 
+#readmore{
+    margin: auto;
+}
+
 #content{
     display: grid;
     grid-template-columns: 1fr 1fr;
