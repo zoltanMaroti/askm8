@@ -59,7 +59,7 @@ def edit_answer(question_id, answer_id):
     selected_answer = data_manager.get_selected_answer(answer_id)
     if request.method == 'POST':
         data_manager.edit_answer(answer_id, request.form['message'])
-        return redirect('/question/'+ question_id)
+        return redirect('/question/' + question_id)
     return render_template('edit-answer.html', question=selected_question, answer=selected_answer)
 
 
@@ -91,6 +91,13 @@ def add_comment(question_id):
     if request.method == 'POST':
         return 'get rekt'
     return render_template("add-comment.html", question=selected_question)
+
+
+@app.route('/question/<question_id>/<vote_number>')
+def upvote_question(question_id, vote_number):
+    upvoted = int(vote_number) + 1
+    data_manager.upvote(question_id, vote_number=upvoted)
+    return redirect(request.referrer)
 
 
 if __name__ == '__main__':

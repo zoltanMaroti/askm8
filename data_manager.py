@@ -118,3 +118,13 @@ def get_result(cursor, question):
                     ;""", {"question": question})
     questions = cursor.fetchall()
     return questions
+
+
+@connection.connection_handler
+def upvote(cursor, id, vote_number):
+    cursor.execute("""
+                       UPDATE question
+                       SET vote_number = %(vote_number)s
+                       WHERE id = %(id)s;
+                       """,
+                   {'id': id, 'vote_number': vote_number})
