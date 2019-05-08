@@ -14,7 +14,8 @@ def get_questions(cursor):
 @connection.connection_handler
 def sort_questions(cursor, selection, order):
     cursor.execute(sql.SQL("""SELECT * FROM question 
-                              ORDER BY {selection} {order};""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
+                              ORDER BY {selection} {order}
+                                LIMIT 5;""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
     questions = cursor.fetchall()
     return questions
 

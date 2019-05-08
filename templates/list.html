@@ -37,7 +37,15 @@
                     <h2><a href="question/{{ question.id }}">{{ question.title }}</a></h2>
                 </div>
                 <div id="info">
-                    <p> {{  question.submission_time }} </p>
+                    <div>
+                        <p> {{  question.submission_time }} </p>
+                    </div>
+                    <div>
+                        <p>{{ question.vote_number }}</p>
+                    </div>
+                    <div>
+                        <p>{{ question.view_number }}</p>
+                    </div>
                 </div>
             </div>
     {% endfor %}
