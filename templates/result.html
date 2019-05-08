@@ -3,7 +3,11 @@
     <!-- Buttons -->
 
     {% for result in results %}
-    {{ result.title }}
+        {% for question in questions %}
+            {% if question.id == result.id %}
+                <a href="question/{{ question.id }}">{{ result.title }}</a><br>
+            {% endif %}
     {% endfor %}
+        {% endfor %}
 
 {% endblock %}

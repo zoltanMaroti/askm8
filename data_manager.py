@@ -103,3 +103,12 @@ def get_result(cursor, question):
                               WHERE title LIKE %(question)s ;""", {"question": question})
     questions = cursor.fetchall()
     return questions
+
+
+@connection.connection_handler
+def view_counter(cursor, id):
+    cursor.execute("""
+                   UPDATE question
+                   SET view_number = view_number + 1
+                   WHERE id = %(id)s;
+                   """, {'id': id})

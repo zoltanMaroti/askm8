@@ -5,7 +5,7 @@
         <div>
             <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
             <form action="/result" id="search" name="search" method="post">
-            <input id="search" name="search" type="text" placeholder="Search by name...">
+            <input id="search" name="search" type="text" placeholder="Search...">
         </form>
         </div>
 
@@ -22,8 +22,6 @@
                     <option id="ASC" name="ASC" value="ASC">Ascending</option>
                     <option id="DESC" name="DESC" value="DESC">Descending</option>
                     </select>
-                </div>
-                <div>
                     <button class="button" id="submit" type="submit" name="submit">Submit</button>
                 </div>
             </form>
@@ -38,6 +36,7 @@
                 </div>
                 <div id="info">
                     <p> {{  question.submission_time }} </p>
+                    <p>&#x1f441; {{ question.view_number }} &#x1f44d; {{ question.vote_number }}</p>
                 </div>
             </div>
     {% endfor %}

@@ -21,6 +21,7 @@ def show_all_questions():
 def view_question(question_id):
 
     if request.method == 'GET':
+        data_manager.view_counter(question_id)
         selected_question = data_manager.get_selected_question(question_id)
         answers = data_manager.get_answers()
         return render_template('question.html', question=selected_question, answers=answers)
@@ -44,7 +45,7 @@ def add_question():
     if request.method == 'POST':
         new_question = {
             'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'view_number': 100,  # TODO add view_number counting
+            'view_number': 0,
             'vote_number': 1,  # TODO add vote_number counting
             'title': request.form['title'],
             'message': request.form['message']
@@ -81,8 +82,9 @@ def edit_question(question_id):
 @app.route('/result', methods=['GET', 'POST'])
 def show_result():
     if request.method == 'POST':
+        questions = data_manager.get_questions()
         result = data_manager.get_result(request.form['search'])
-        return render_template("result.html", results=result)
+        return render_template("result.html", results=result, questions=questions)
 
 
 if __name__ == '__main__':
