@@ -18,7 +18,7 @@ def show_all_questions():
 @app.route('/')
 def show_limited_question():
     questions = data_manager.last_questions(5)
-    return render_template('list.html', questions=questions)
+    return render_template('list.html', questions=questions, limit='limited')
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
