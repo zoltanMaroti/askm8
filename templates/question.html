@@ -2,13 +2,17 @@
 {% block content %}
     <div class="question_page">
         <div id="question">
-            <div id="main">
+            <div id="q_main">
                 <h2>{{ question.title }}</h2>
                 <p>{{ question.message }}</p>
             </div>
-            <div id="sub">
-                <p>{{ question.submission_time }}</p>
-                <p>{{ question.vote_number }}</p>
+            <div id="q_sub">
+                <div>
+                    <p> &#x1f44d;: {{ question.vote_number }}</p>
+                </div>
+                <div>
+                    <p> &#x1F557;: {{ question.submission_time }}</p>
+                </div>
             </div>
             <div>
                 <a href="/question/{{question.id}}/edit"><button class="button">Edit</button></a>
@@ -39,7 +43,7 @@
                     {% if answer.question_id == question.id -%}
                         <div class="answer">
                             <div>
-                                <h1>{{ answer.message }}</h1>
+                                <h2>{{ answer.message }}</h2>
                             </div>
                             <div>
                                 <p> &#x1f44d;: {{ answer.vote_number }} &#x1F557;: {{ answer.submission_time }}</p>
