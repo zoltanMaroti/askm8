@@ -25,7 +25,7 @@ def sort_questions(cursor, selection, order):
 def get_answers(cursor):
     cursor.execute("""
                    SELECT * FROM answer
-                   ORDER BY submission_time DESC;
+                   ORDER BY submission_time ASC;
                    """)
     answers = cursor.fetchall()
     return answers
@@ -35,7 +35,7 @@ def get_answers(cursor):
 def get_comments(cursor):
     cursor.execute("""
                     SELECT * FROM comment
-                    ORDER BY submission_time DESC;
+                    ORDER BY submission_time ASC;
                     """)
     comments = cursor.fetchall()
     return comments

@@ -63,6 +63,10 @@ body a, p{
     letter-spacing: 3px;
 }
 
+#logo a:hover{
+    color: #edc139;
+}
+
 /*List.html*/
 
 #home{
@@ -145,6 +149,23 @@ body a, p{
 #q_sub{
     padding: 5px;
     font-size: 12px;
+}
+
+#buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+#comments{
+    display: grid;
+    box-shadow: 0px 10px 25px 15px black;
+    background-color: #0f1217;
+    width: 50%;
+    float: right;
+}
+
+.comment{
+    padding: 5px 10px;
 }
 
 #answers{

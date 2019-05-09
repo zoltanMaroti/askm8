@@ -51,7 +51,7 @@ def add_question():
         new_question = {
             'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'view_number': 0,
-            'vote_number': 1,  # TODO add vote_number counting
+            'vote_number': 0,
             'title': request.form['title'],
             'message': request.form['message']
         }
