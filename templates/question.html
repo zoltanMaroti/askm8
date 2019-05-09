@@ -16,9 +16,23 @@
                 <a href="/question/{{ question.id }}/{{ question.vote_number }}"><button type="button", class="button", name="upvote">Upvote</button> </a>
             </div>
 
-{#            <div>#}
-{#                <a href="/question/{{ question.id }}/new-comment"><button class="button">Comment</button></a>#}
-{#            </div>#}
+            <div>
+                <a href="/question/{{ question.id }}/new-comment"><button class="button">Comment</button></a>
+            </div>
+        </div>
+        <div id="comments">
+            {% for comment in comments %}
+                {% if comment.question_id == question.id %}
+                    <div class="comment">
+                        <p class="comment_mssg">
+                            {{ comment.message }}
+                        </p>
+                        <p class="footer_info">
+                            {{ comment.submission_time }}
+                        </p>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
         <div id="answers">
                 {% for answer in answers %}
@@ -29,8 +43,7 @@
                             </p>
                                 <a href="{{ question.id }}/{{ answer.id }}/{{ answer.vote_number }}"><button class="button">upvote</button></a>
                             <p class="footer_info">
-{#                                {{ answer.id }}, {{ answer.vote_number }}, {{ answer.submission_time }}#}
-                                {{ answer.vote_number }} , {{ answer.submission_time }}
+                                {{ answer.vote }} {{ answer.submission_time }}
                             </p>
                         </div>
                         <div>
@@ -45,7 +58,7 @@
                         </div>
                             <a href="question/{{ question.id }}/{{ answer.id }}/{{ answer.vote_number }}"><button class="button">Upvote</button></a>
                         <p class="footer_info">
-                            {{ answer.id }}, {{ answer.vote_number }}, {{ answer.submission_time }}
+                            {{ answer.vote_number }}, {{ answer.submission_time }}
                         </p>
                         </div>
                         <div>

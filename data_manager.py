@@ -12,34 +12,31 @@ def get_questions(cursor):
 
 
 @connection.connection_handler
-def sort_questions(cursor, selection, order, limit):
-    if limit == 'limited':
-        cursor.execute(sql.SQL("""SELECT * FROM question 
-                                  ORDER BY {selection} {order}
-                                    LIMIT 5;""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
-        questions = cursor.fetchall()
-        return questions
-    elif limit == 'unlimited':
-        cursor.execute(sql.SQL("""SELECT * FROM question 
-                                         ORDER BY {selection} {order};""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
-        questions = cursor.fetchall()
-        return questions
-
-
-@connection.connection_handler
-def sort_answers(cursor, selection, order):
-    cursor.execute(sql.SQL("""SELECT * FROM answer
+def sort_questions(cursor, selection, order):
+    cursor.execute(sql.SQL("""SELECT * FROM question 
                               ORDER BY {selection} {order};""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
     questions = cursor.fetchall()
     return questions
+#todo order by
+
 
 @connection.connection_handler
 def get_answers(cursor):
     cursor.execute("""
-                   SELECT * FROM answer;
+                   SELECT * FROM answer
+                   ORDER BY submission_time DESC;
                    """)
     answers = cursor.fetchall()
     return answers
+
+
+@connection.connection_handler
+def get_comments(cursor):
+    cursor.execute("""
+                    SELECT * FROM comment;
+                    """)
+    comments = cursor.fetchall()
+    return comments
 
 
 @connection.connection_handler
@@ -80,6 +77,15 @@ def add_new_answer(cursor, detail):
                     VALUES (%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s)
                     """,
                    detail)
+
+
+@connection.connection_handler
+def add_new_comment(cursor, detail):
+    cursor.execute("""
+                    INSERT INTO comment (question_id, message, submission_time, edited_number)
+                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s);
+                    """,
+                    detail)
 
 
 @connection.connection_handler
@@ -152,3 +158,12 @@ def upvote_answer(cursor, id, vote_number):
                        WHERE id = %(id)s;
                        """,
                    {'id': id, 'vote_number': vote_number})
+
+
+@connection.connection_handler
+def view_counter(cursor, id):
+    cursor.execute("""
+                   UPDATE question
+                   SET view_number = view_number + 1
+                   WHERE id = %(id)s;
+                   """, {'id': id})

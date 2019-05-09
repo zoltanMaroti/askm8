@@ -26,9 +26,11 @@ def list_unlimited():
 def view_question(question_id):
 
     if request.method == 'GET':
+        data_manager.view_counter(question_id)
         selected_question = data_manager.get_selected_question(question_id)
-        answers = data_manager.sort_answers('submission_time', 'ASC')
-        return render_template('question.html', question=selected_question, answers=answers, title='Question')
+        answers = data_manager.get_answers()
+        comments = data_manager.get_comments()
+        return render_template('question.html', question=selected_question, answers=answers, comments=comments)
 
     elif request.method == 'POST':
         new_answer = {
@@ -49,7 +51,7 @@ def add_question():
     if request.method == 'POST':
         new_question = {
             'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'view_number': 100,  # TODO add view_number counting
+            'view_number': 0,
             'vote_number': 1,  # TODO add vote_number counting
             'title': request.form['title'],
             'message': request.form['message']
@@ -86,16 +88,24 @@ def edit_question(question_id):
 @app.route('/result', methods=['GET', 'POST'])
 def show_result():
     if request.method == 'POST':
+        questions = data_manager.get_questions()
         result = data_manager.get_result(request.form['search'])
         return render_template("result.html", results=result, title='Results')
 
 
-@app.route('/question/<question_id>/new-comment')
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_comment(question_id):
     selected_question = data_manager.get_selected_question(question_id)
     if request.method == 'POST':
-        return 'get rekt'
-    return render_template("add-comment.html", question=selected_question, title='Add Comment')
+        new_comment = {
+                        'question_id': question_id,
+                        'message': request.form['message'],
+                        'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                        'edited_number': 0
+        }
+        data_manager.add_new_comment(new_comment)
+        return redirect('/question/' + question_id)
+    return render_template("add-comment.html", question=selected_question)
 
 
 @app.route('/question/<question_id>/<vote_number>')
