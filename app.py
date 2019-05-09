@@ -5,7 +5,6 @@ import data_manager
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
 @app.route('/list', methods=['GET', 'POST'])
 def show_all_questions():
     if request.method == 'GET':
@@ -14,6 +13,12 @@ def show_all_questions():
     elif request.method == 'POST':
         questions = data_manager.sort_questions(request.form['selection'], request.form['order'])
         return render_template('list.html', questions=questions, selection=request.form['selection'], order=request.form['order'])
+
+
+@app.route('/')
+def show_limited_question():
+    questions = data_manager.last_questions(5)
+    return render_template('list.html', questions=questions, limit='limited')
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])

@@ -51,6 +51,18 @@ def get_selected_question(cursor, id):
 
 
 @connection.connection_handler
+def last_questions(cursor, amount):
+    cursor.execute("""
+                    SELECT * FROM question
+                    ORDER BY submission_time DESC
+                    LIMIT %(amount)s;
+                    """,
+                   {'amount': amount})
+    last_question = cursor.fetchall()
+    return last_question
+
+
+@connection.connection_handler
 def get_selected_answer(cursor, id):
     cursor.execute('''
                     SELECT * FROM answer
