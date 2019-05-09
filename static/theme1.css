@@ -194,6 +194,41 @@ body a, p{
     margin-top: 1em;
 }
 
+/*Add Comment*/
+#new_comment{
+    display: grid;
+    padding: 10px;
+    background-color: #2d3443;
+    box-shadow: 0px 10px 25px 15px black;
+    color: #f1f2f2;
+}
+
+#comment_info h2{
+    font-size: 30px;
+    color: #edc139;
+}
+
+#comment_info p{
+    font-size: 20px;
+}
+
+/*Edit answer*/
+
+#answeredit{
+    color: #f1f2f2;
+    background-color: #2d3443;
+    box-shadow: 0px 10px 25px 15px black;
+    padding: 10px;
+}
+
+#answeredit h2{
+    font-size: 30px;
+    color: #edc139;
+}
+
+#answeredit p{
+    font-size: 20px;
+}
 
 /*Common*/
 #message{
