@@ -1,13 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <!-- Buttons -->
 
     {% for result in results %}
         {% for question in questions %}
             {% if question.id == result.id %}
-                <a href="question/{{ question.id }}">{{ result.title }}</a><br>
+                <a href="question/{{ question.id }}">{{ result.title }}</a><br> {# todo br nemkell #}
             {% endif %}
-    {% endfor %}
         {% endfor %}
+    {% endfor %}
 
 {% endblock %}

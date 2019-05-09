@@ -87,7 +87,7 @@ def edit_question(question_id):
 @app.route('/result', methods=['GET', 'POST'])
 def show_result():
     if request.method == 'POST':
-        questions = data_manager.get_questions()
+        # questions = data_manager.get_questions()
         result = data_manager.get_result(request.form['search'])
         return render_template("result.html", results=result, title='Results')
 

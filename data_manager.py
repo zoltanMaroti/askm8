@@ -18,7 +18,6 @@ def sort_questions(cursor, selection, order):
                               ORDER BY {selection} {order};""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
     questions = cursor.fetchall()
     return questions
-#todo order by
 
 
 @connection.connection_handler
