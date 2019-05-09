@@ -29,7 +29,7 @@ def view_question(question_id):
         selected_question = data_manager.get_selected_question(question_id)
         answers = data_manager.get_answers()
         comments = data_manager.get_comments()
-        return render_template('question.html', question=selected_question, answers=answers, comments=comments)
+        return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question')
 
     elif request.method == 'POST':
         new_answer = {
@@ -104,7 +104,7 @@ def add_comment(question_id):
         }
         data_manager.add_new_comment(new_comment)
         return redirect('/question/' + question_id)
-    return render_template("add-comment.html", question=selected_question)
+    return render_template("add-comment.html", question=selected_question, title='Add Comment')
 
 
 @app.route('/question/<question_id>/<vote_number>')

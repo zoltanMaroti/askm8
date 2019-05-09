@@ -38,20 +38,21 @@
                             <p> {{  question.submission_time }} </p>
                         </div>
                         <div>
-                            <p>{{ question.vote_number }}</p>
+                            <p> &#x1f44d; {{ question.vote_number }}</p>
                         </div>
                         <div>
-                            <p>{{ question.view_number }}</p>
+                            <p> &#x1f441; {{ question.view_number }}</p>
                         </div>
                     </div>
                 </div>
             {% endfor %}
+            
+            </div>
             {% if limit %}
             <div id="readmore">
-                <button class="button", id="unlimit", type="button"><a href="/list">Unlimit</a></button>
+                <button class="button", id="showall", type="button"><a href="/list">&#8595;</a></button>
             </div>
             {% endif %}
-            </div>
     </div>
 
 {% endblock %}
