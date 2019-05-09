@@ -9,17 +9,11 @@ app = Flask(__name__)
 @app.route('/list', methods=['GET', 'POST'])
 def show_all_questions():
     if request.method == 'GET':
-        questions = data_manager.sort_questions('submission_time', 'DESC', limit='limited')
-        return render_template('list.html', questions=questions, selection='submission_time', order='DESC', limit='limited')
+        questions = data_manager.sort_questions('submission_time', 'DESC')
+        return render_template('list.html', questions=questions, selection='submission_time', order='DESC')
     elif request.method == 'POST':
-        questions = data_manager.sort_questions(request.form['selection'], request.form['order'], limit='unlimited')
+        questions = data_manager.sort_questions(request.form['selection'], request.form['order'])
         return render_template('list.html', questions=questions, selection=request.form['selection'], order=request.form['order'])
-
-
-@app.route('/list/unlimited')
-def list_unlimited():
-    questions = data_manager.sort_questions('submission_time', 'DESC', limit='unlimited')
-    return render_template('list.html', questions=questions, selection='submission_time', order='DESC')
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
