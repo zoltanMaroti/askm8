@@ -1,18 +1,17 @@
 from flask import Flask, render_template, redirect, request
-from datetime import datetime
 import data_manager
+from util import get_current_datetime
 
 app = Flask(__name__)
 
 
 @app.route('/list', methods=['GET', 'POST'])
 def show_all_questions():
-    if request.method == 'GET':
-        questions = data_manager.sort_questions('submission_time', 'DESC')
-        return render_template('list.html', questions=questions, selection='submission_time', order='DESC')
-    elif request.method == 'POST':
-        questions = data_manager.sort_questions(request.form['selection'], request.form['order'])
-        return render_template('list.html', questions=questions, selection=request.form['selection'], order=request.form['order'])
+    order_column = request.args.get('selection', 'submission_time')
+    order_direction = request.args.get('order', 'DESC')
+
+    questions = data_manager.sort_questions(order_column, order_direction)
+    return render_template('list.html', questions=questions, selection=order_column, order=order_direction)
 
 
 @app.route('/')
@@ -21,25 +20,25 @@ def show_limited_question():
     return render_template('list.html', questions=questions, limit='limited')
 
 
-@app.route('/question/<question_id>', methods=['GET', 'POST'])
+@app.route('/question/<question_id>')
 def view_question(question_id):
+    data_manager.view_counter(question_id)
+    selected_question = data_manager.get_selected_question(question_id)
+    answers = data_manager.get_answers()
+    comments = data_manager.get_comments()
+    return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question')
 
-    if request.method == 'GET':
-        data_manager.view_counter(question_id)
-        selected_question = data_manager.get_selected_question(question_id)
-        answers = data_manager.get_answers()
-        comments = data_manager.get_comments()
-        return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question')
 
-    elif request.method == 'POST':
-        new_answer = {
-            'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'vote_number': 0,
-            'question_id': question_id,
-            'message': request.form['message'],
-        }
-        data_manager.add_new_answer(new_answer)
-        return redirect(request.url)
+@app.route('/question/<question_id>', methods=['POST'])
+def view_question_post(question_id):
+    new_answer = {
+        'submission_time': get_current_datetime(),
+        'vote_number': 0,
+        'question_id': question_id,
+        'message': request.form['message'],
+    }
+    data_manager.add_new_answer(new_answer)
+    return redirect(request.url)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -49,7 +48,7 @@ def add_question():
 
     if request.method == 'POST':
         new_question = {
-            'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'submission_time': get_current_datetime(),
             'view_number': 0,
             'vote_number': 0,
             'title': request.form['title'],
@@ -97,10 +96,10 @@ def add_comment(question_id):
     selected_question = data_manager.get_selected_question(question_id)
     if request.method == 'POST':
         new_comment = {
-                        'question_id': question_id,
-                        'message': request.form['message'],
-                        'submission_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                        'edited_number': 0
+            'question_id': question_id,
+            'message': request.form['message'],
+            'submission_time': get_current_datetime(),
+            'edited_number': 0
         }
         data_manager.add_new_comment(new_comment)
         return redirect('/question/' + question_id)

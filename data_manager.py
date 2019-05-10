@@ -128,29 +128,29 @@ def edit_question(cursor, id, title, message):
                    {'id': id, 'title': title, 'message': message})
 
 
-'''
-@connection.connection_handler
-def get_result(cursor, question):
-    question = '%' + question + '%'
-    cursor.execute("""SELECT * FROM question 
-                              WHERE title LIKE %(question)s ;""", {"question": question})
-    questions = cursor.fetchall()
-    return questions
-'''
-
 
 @connection.connection_handler
 def get_result(cursor, search):
     search = '%' + search + '%'
+    cursor.execute("""SELECT * FROM question 
+                              WHERE title LIKE %(search)s ;""", {"search": search})
+    search_result = cursor.fetchall()
+    return search_result
+
+
+'''
+@connection.connection_handler
+def get_result(cursor, question):
+    question = '%' + question + '%'
     cursor.execute("""SELECT q.title, q.message, a.message FROM
                     (SELECT title, message FROM question
-                    WHERE title LIKE %(search)s) AS q,
+                    WHERE title LIKE %(question)s) AS q,
                     (SELECT message FROM answer
-                    WHERE message LIKE %(search)s) AS a
-                    ;""", {"search": search})
-    result = cursor.fetchall()
-    return result
-
+                    WHERE message LIKE %(question)s) AS a
+                    ;""", {"question": question})
+    questions = cursor.fetchall()
+    return questions
+'''
 
 @connection.connection_handler
 def upvote_question(cursor, id, vote_number):

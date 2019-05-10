@@ -3,14 +3,15 @@
     <div id="home">
         <!-- Buttons -->
         <div>
-            <form action="/list" method="post">
+            <form action="/list" method="get">
                 <div id="order_butt">
                     <div>
                         <select name="selection" class="button" id="orderselect">
                             <option id="title" name="title" value="title">Order by title</option>
                             <option id="view_number" name="view_number" value="view_number">Order by views</option>
                             <option id="vote_number" name="vote_number" value="vote_number">Order by votes</option>
-                            <option id="submission_time" name="submission_time" value="submission_time">Order by time</option>
+                            <option id="submission_time" name="submission_time" value="submission_time">Order by time
+                            </option>
                         </select>
                     </div>
                     <div>
@@ -28,14 +29,14 @@
         </div>
         <!--The whole shit-->
         <div class="grid">
-             {% for question in questions %}
+            {% for question in questions %}
                 <div id="content">
                     <div id="title">
                         <h2><a href="question/{{ question.id }}">{{ question.title }}</a></h2>
                     </div>
                     <div id="info">
                         <div>
-                            <p> {{  question.submission_time }} </p>
+                            <p> {{ question.submission_time }} </p>
                         </div>
                         <div>
                             <p> &#x1f44d; {{ question.vote_number }}</p>
@@ -46,13 +47,13 @@
                     </div>
                 </div>
             {% endfor %}
-            
-            </div>
-            {% if limit %}
+
+        </div>
+        {% if limit %}
             <div id="readmore">
-                <button class="button", id="showall", type="button"><a href="/list">&#8595;</a></button>
+                <button class="button" id="showall" type="button"><a href="/list">&#8595;</a></button>
             </div>
-            {% endif %}
+        {% endif %}
     </div>
 
 {% endblock %}
