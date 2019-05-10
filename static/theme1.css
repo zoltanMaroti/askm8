@@ -161,6 +161,7 @@ body a, p{
     background-color: #0f1217;
     width: 50%;
     float: right;
+    margin-top: 5px;
 }
 
 .comment{

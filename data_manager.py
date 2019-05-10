@@ -97,8 +97,7 @@ def add_new_comment(cursor, detail):
     cursor.execute("""
                     INSERT INTO comment (question_id, message, submission_time, edited_number)
                     VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s);
-                    """,
-                    detail)
+                    """, detail)
 
 
 @connection.connection_handler
@@ -141,16 +140,16 @@ def get_result(cursor, question):
 
 
 @connection.connection_handler
-def get_result(cursor, question):
-    question = '%' + question + '%'
+def get_result(cursor, search):
+    search = '%' + search + '%'
     cursor.execute("""SELECT q.title, q.message, a.message FROM
                     (SELECT title, message FROM question
-                    WHERE title LIKE %(question)s) AS q,
+                    WHERE title LIKE %(search)s) AS q,
                     (SELECT message FROM answer
-                    WHERE message LIKE %(question)s) AS a
-                    ;""", {"question": question})
-    questions = cursor.fetchall()
-    return questions
+                    WHERE message LIKE %(search)s) AS a
+                    ;""", {"search": search})
+    result = cursor.fetchall()
+    return result
 
 
 @connection.connection_handler
