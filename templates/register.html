@@ -1,36 +1,58 @@
 {% extends 'layout.html' %}
 {% block content %}
-
-    <div id="register">
+    <div class="register_page">
         <form action="/register" method="post">
-            <div>
-                <p>Username</p>
+            <div class="inputbox" id="username">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="inputbox" id="password">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <div class="inputbox" id="confirm_password">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" required>
+            </div>
+            <div class="inputbox" id="email">
+                <label>E-mail</label>
+                <input type="text" name="email" required>
             </div>
             <div>
-                <input type="text" id="new_user" name="username">
-            </div>
-            <div>
-                <p>Password</p>
-            </div>
-            <div>
-                <input type="password" id="new_password" name="password">
-            </div>
-            <div>
-                <p>Confirm password</p>
-            </div>
-            <div>
-                <input type="password" id="confirm_password" name="confirm_password">
-            </div>
-            <div>
-                <p>Email</p>
-            </div>
-            <div>
-                <input type="email" id="email" name="email">
-            </div>
-            <div>
-                <button class="button" id="submit" type="submit" name="submit">Register</button>
+                <button type="submit" class="button" id="submit">Button</button>
             </div>
         </form>
     </div>
-
 {% endblock %}
+
+{#    <div id="register">#}
+{#        <form action="/register" method="post">#}
+{#            <div>#}
+{#                <p>Username</p>#}
+{#            </div>#}
+{#            <div>#}
+{#                <input type="text" id="new_user" name="username">#}
+{#            </div>#}
+{#            <div>#}
+{#                <p>Password</p>#}
+{#            </div>#}
+{#            <div>#}
+{#                <input type="password" id="new_password" name="password">#}
+{#            </div>#}
+{#            <div>#}
+{#                <p>Confirm password</p>#}
+{#            </div>#}
+{#            <div>#}
+{#                <input type="password" id="confirm_password" name="confirm_password">#}
+{#            </div>#}
+{#            <div>#}
+{#                <p>Email</p>#}
+{#            </div>#}
+{#            <div>#}
+{#                <input type="email" id="email" name="email">#}
+{#            </div>#}
+{#            <div>#}
+{#                <button class="button" id="submit" type="submit" name="submit">Register</button>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}

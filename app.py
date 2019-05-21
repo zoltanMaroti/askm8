@@ -48,7 +48,7 @@ def add_question():
 
     if request.method == 'POST':
         new_question = {
-            'submission_time': get_current_datetime(),
+            'submission_time': util.get_current_datetime(),
             'view_number': 0,
             'vote_number': 0,
             'title': request.form['title'],
