@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, escape
 import data_manager
 import util
 import error_handle
@@ -36,7 +36,7 @@ def view_question_post(question_id):
         'submission_time': util.get_current_datetime(),
         'vote_number': 0,
         'question_id': question_id,
-        'message': request.form['message'],
+        'message': escape(request.form['message']),
     }
     data_manager.add_new_answer(new_answer)
     return redirect(request.url)
@@ -52,8 +52,8 @@ def add_question():
             'submission_time': util.get_current_datetime(),
             'view_number': 0,
             'vote_number': 0,
-            'title': request.form['title'],
-            'message': request.form['message']
+            'title': escape(request.form['title']),
+            'message': escape(request.form['message'])
         }
         data_manager.add_new_question(new_question)
         return redirect('/')
@@ -98,8 +98,8 @@ def add_comment(question_id):
     if request.method == 'POST':
         new_comment = {
             'question_id': question_id,
-            'message': request.form['message'],
-            'submission_time': get_current_datetime(),
+            'message': escape(request.form['message']),
+            'submission_time': util.get_current_datetime(),
             'edited_number': 0
         }
         data_manager.add_new_comment(new_comment)

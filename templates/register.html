@@ -1,14 +1,14 @@
 {% extends 'layout.html' %}
 {% block content %}
     <div class="register_page">
-        <form action="/register" method="post">
+        <form action="/register" method="post" id="register_form">
             <div class="inputbox" id="username">
                 <label>Username</label>
                 <input type="text" name="username" required>
             </div>
             {% if error %}
                 <div class="error" id="name_error">
-                    <h2>{{ error['name_error'] }}</h2>
+                    <p>!{{error['name_error'] }}</p>
                 </div>
             {% endif %}
             <div class="inputbox" id="password">
@@ -21,7 +21,7 @@
             </div>
             {% if error %}
                 <div class="error" id="password_error">
-                    <h2>{{ error.confirmed_password }}</h2>
+                    <p>!{{ error.confirmed_password }}</p>
                 </div>
             {% endif %}
             <div class="inputbox" id="email">
@@ -30,7 +30,12 @@
             </div>
             {% if error %}
                 <div class="error" id="email_error">
-                    <h2>{{ error.email_error }}</h2>
+                    <p>!{{ error.email_error }}</p>
+                </div>
+            {% endif %}
+            {% if error %}
+                <div class="error" id="forbidden">
+                    <p>!{{ error.forbidden_char }}</p>
                 </div>
             {% endif %}
             <div>

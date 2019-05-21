@@ -261,3 +261,11 @@ body a, p{
     padding: 10px;
 }
 
+.inputbox{
+    display: grid;
+}
+
+/*Errors*/
+.error{
+    background-color: red;
+}
