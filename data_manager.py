@@ -128,7 +128,6 @@ def edit_question(cursor, id, title, message):
                    {'id': id, 'title': title, 'message': message})
 
 
-
 @connection.connection_handler
 def get_result(cursor, search):
     search = '%' + search + '%'
@@ -151,6 +150,7 @@ def get_result(cursor, question):
     questions = cursor.fetchall()
     return questions
 '''
+
 
 @connection.connection_handler
 def upvote_question(cursor, id, vote_number):
