@@ -1,43 +1,16 @@
-import connection
 from psycopg2 import sql
 
-
-@connection.connection_handler
-def get_questions(cursor):
-    cursor.execute("""
-                   SELECT * FROM question
-                   ORDER BY submission_time DESC;
-                   """)
-    questions = cursor.fetchall()
-    return questions
+import connection
 
 
 @connection.connection_handler
-def sort_questions(cursor, selection, order):
-    cursor.execute(sql.SQL("""SELECT * FROM question 
-                              ORDER BY {selection} {order};""").format(selection=sql.SQL(selection), order=sql.SQL(order)))
-    questions = cursor.fetchall()
-    return questions
-
-
-@connection.connection_handler
-def get_answers(cursor):
-    cursor.execute("""
-                   SELECT * FROM answer
-                   ORDER BY submission_time ASC;
-                   """)
-    answers = cursor.fetchall()
-    return answers
-
-
-@connection.connection_handler
-def get_comments(cursor):
-    cursor.execute("""
-                    SELECT * FROM comment
-                    ORDER BY submission_time ASC;
-                    """)
-    comments = cursor.fetchall()
-    return comments
+def get_ordered_data(cursor, table, order_by, direction):
+    cursor.execute(sql.SQL("""SELECT * FROM {table} 
+                                  ORDER BY {order_by} {direction};
+                                  """).format(table=sql.SQL(table), order_by=sql.SQL(order_by),
+                                              direction=sql.SQL(direction)))
+    data = cursor.fetchall()
+    return data
 
 
 @connection.connection_handler
@@ -52,6 +25,35 @@ def get_selected_question(cursor, id):
 
 
 @connection.connection_handler
+def get_selected_answer(cursor, id):
+    cursor.execute('''
+                    SELECT * FROM answer
+                    WHERE id = %(id)s;
+                    ''',
+                   {'id': id})
+    selected_answer = cursor.fetchone()
+    return selected_answer
+
+
+@connection.connection_handler
+def get_result(cursor, search):
+    search = '%' + search + '%'
+    cursor.execute("""SELECT * FROM question 
+                              WHERE title LIKE %(search)s ;""", {"search": search})
+    search_result = cursor.fetchall()
+    return search_result
+
+
+@connection.connection_handler
+def sort_questions(cursor, selection, order):
+    cursor.execute(sql.SQL("""SELECT * FROM question 
+                              ORDER BY {selection} {order};""").format(selection=sql.SQL(selection),
+                                                                       order=sql.SQL(order)))
+    questions = cursor.fetchall()
+    return questions
+
+
+@connection.connection_handler
 def last_questions(cursor, amount):
     cursor.execute("""
                     SELECT * FROM question
@@ -61,17 +63,6 @@ def last_questions(cursor, amount):
                    {'amount': amount})
     last_question = cursor.fetchall()
     return last_question
-
-
-@connection.connection_handler
-def get_selected_answer(cursor, id):
-    cursor.execute('''
-                    SELECT * FROM answer
-                    WHERE id = %(id)s;
-                    ''',
-                   {'id': id})
-    selected_answer = cursor.fetchone()
-    return selected_answer
 
 
 @connection.connection_handler
@@ -110,15 +101,6 @@ def edit_answer(cursor, id, message):
 
 
 @connection.connection_handler
-def delete_question_and_answer(cursor, id):
-    cursor.execute("""
-                    DELETE FROM question
-                    WHERE id = %(id)s;
-                    """,
-                   {'id': id})
-
-
-@connection.connection_handler
 def edit_question(cursor, id, title, message):
     cursor.execute("""
                    UPDATE question
@@ -128,14 +110,13 @@ def edit_question(cursor, id, title, message):
                    {'id': id, 'title': title, 'message': message})
 
 
-
 @connection.connection_handler
-def get_result(cursor, search):
-    search = '%' + search + '%'
-    cursor.execute("""SELECT * FROM question 
-                              WHERE title LIKE %(search)s ;""", {"search": search})
-    search_result = cursor.fetchall()
-    return search_result
+def delete_question_and_answer(cursor, id):
+    cursor.execute("""
+                    DELETE FROM question
+                    WHERE id = %(id)s;
+                    """,
+                   {'id': id})
 
 
 '''
@@ -151,6 +132,7 @@ def get_result(cursor, question):
     questions = cursor.fetchall()
     return questions
 '''
+
 
 @connection.connection_handler
 def upvote_question(cursor, id, vote_number):

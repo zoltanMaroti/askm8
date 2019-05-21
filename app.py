@@ -24,8 +24,8 @@ def show_limited_question():
 def view_question(question_id):
     data_manager.view_counter(question_id)
     selected_question = data_manager.get_selected_question(question_id)
-    answers = data_manager.get_answers()
-    comments = data_manager.get_comments()
+    answers = data_manager.get_ordered_data('answer', 'submission_time', 'ASC')
+    comments = data_manager.get_ordered_data('comment', 'submission_time', 'ASC')
     return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question')
 
 
@@ -86,7 +86,7 @@ def edit_question(question_id):
 @app.route('/result', methods=['GET', 'POST'])
 def show_result():
     if request.method == 'POST':
-        questions = data_manager.get_questions()
+        questions = data_manager.get_ordered_data('question', 'submission_time', 'DESC')
         result = data_manager.get_result(request.form['search'])
         return render_template("result.html", results=result, title='Results', questions=questions)
 
