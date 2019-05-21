@@ -7,18 +7,21 @@
                 <p>Username</p>
             </div>
             <div>
-                <input id="login_user" name="username">
+                <input type="text" id="login_user" name="username">
             </div>
             <div>
                 <p>Password</p>
             </div>
             <div>
-                <input id="login_password" name="password">
+                <input type="password" id="login_password" name="password">
             </div>
             <div>
                 <button class="button" id="submit" type="submit" name="submit">Log in</button>
             </div>
         </form>
+    {% if message %}
+    {{ message }}
+    {% endif %}
     </div>
 
 {% endblock %}

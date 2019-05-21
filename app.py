@@ -1,8 +1,10 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, session
+
 import data_manager
 import util
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 @app.route('/list', methods=['GET', 'POST'])
@@ -16,8 +18,12 @@ def show_all_questions():
 
 @app.route('/')
 def show_limited_question():
+    if 'username' in session:
+        username = session['username']
+    else:
+        username = False
     questions = data_manager.last_questions(5)
-    return render_template('list.html', questions=questions, limit='limited')
+    return render_template('list.html', questions=questions, limit='limited', username=username)
 
 
 @app.route('/question/<question_id>')
@@ -26,7 +32,8 @@ def view_question(question_id):
     selected_question = data_manager.get_selected_question(question_id)
     answers = data_manager.get_answers()
     comments = data_manager.get_comments()
-    return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question')
+    return render_template('question.html', question=selected_question, answers=answers, comments=comments,
+                           title='Question')
 
 
 @app.route('/question/<question_id>', methods=['POST'])
@@ -120,8 +127,20 @@ def upvote_answer(question_id, answer_id, vote_number):
     return redirect(request.referrer)
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        username = request.form['username']
+        password = request.form['password']
+        saved_password = data_manager.get_hash(username)
+        user_status = util.verify_password(password, saved_password['password'])
+        if user_status is True:
+            return redirect(url_for('show_all_questions'))
+        else:
+            message = 'Invalid username / password!'
+            return render_template('login.html', message=message)
+
     return render_template('login.html')
 
 
@@ -138,9 +157,15 @@ def register():
             data_manager.save_user_data(username=username, hashed_pass=hashed_pass, email=email)
             return redirect(url_for('login'))
         else:
-            return render_template('/')#TODO error message IS A MUST
+            return render_template('/')  # TODO error message IS A MUST
     else:
         return render_template('register.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('show_all_questions'))
 
 
 if __name__ == '__main__':

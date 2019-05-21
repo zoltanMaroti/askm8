@@ -195,5 +195,6 @@ def get_hash(cursor, username):
                     SELECT password FROM users
                     WHERE username = %(username)s
                     """, {'username': username})
-    hash = cursor.fetchall()
+    hash = cursor.fetchone()
     return hash
+
