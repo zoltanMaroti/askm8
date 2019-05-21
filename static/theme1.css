@@ -121,7 +121,7 @@ body a, p{
 
 #nav{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     text-align:center;
     grid-template-rows: 2em;
     padding: 10px;
