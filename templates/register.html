@@ -2,44 +2,44 @@
 {% block content %}
     <div class="register_page">
         <form action="/register" method="post" id="register_form">
-            <div class="inputbox" id="username">
-                <label>Username</label>
-                <input type="text" name="username" required>
+            <div class="input_box" id="username">
+                <div><label>Username</label></div>
+                <div><input type="text" name="username" required></div>
             </div>
             {% if error %}
                 <div class="error" id="name_error">
-                    <p>!{{error['name_error'] }}</p>
+                    <p>!ERROR!</p>
                 </div>
             {% endif %}
-            <div class="inputbox" id="password">
-                <label>Password</label>
-                <input type="password" name="password" required>
+            <div class="input_box" id="password">
+                <div><label>Password</label></div>
+                <div><input type="password" name="password" required></div>
             </div>
-            <div class="inputbox" id="confirm_password">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" required>
+            <div class="input_box" id="confirm_password">
+                <div><label>Confirm Password</label></div>
+                <div><input type="password" name="confirm_password" required></div>
             </div>
             {% if error %}
                 <div class="error" id="password_error">
-                    <p>!{{ error.confirmed_password }}</p>
+                    <p>!ERROR!</p>
                 </div>
             {% endif %}
-            <div class="inputbox" id="email">
-                <label>E-mail</label>
-                <input type="text" name="email" required>
+            <div class="input_box" id="email">
+                <div><label>E-mail</label></div>
+                <div><input type="text" name="email" required></div>
             </div>
             {% if error %}
                 <div class="error" id="email_error">
-                    <p>!{{ error.email_error }}</p>
+                    <p>!ERROR!</p>
                 </div>
             {% endif %}
             {% if error %}
                 <div class="error" id="forbidden">
-                    <p>!{{ error.forbidden_char }}</p>
+                    <p>!ERROR!</p>
                 </div>
             {% endif %}
             <div>
-                <button type="submit" class="button" id="submit">Button</button>
+                <button type="submit" class="button" id="submit">Sign up</button>
             </div>
         </form>
     </div>
