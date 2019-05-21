@@ -94,13 +94,13 @@ def add_new_comment(cursor, detail):
 
 
 
-'''@connection.connection_handler
+@connection.connection_handler
 def insert_data(cursor, table, data):
     values = util.make_string(data)
     cursor.execute(sql.SQL(("""
                        INSERT INTO {table}
                        VALUES (%(values)s);
-                       """).format(table=sql.SQL(table), values=sql.SQL(values))))'''
+                       """).format(table=sql.SQL(table), values=sql.SQL(values))))
 
 
 @connection.connection_handler
