@@ -6,6 +6,11 @@
                 <label>Username</label>
                 <input type="text" name="username" required>
             </div>
+            {% if error %}
+                <div class="error" id="name_error">
+                    <h2>{{ error['name_error'] }}</h2>
+                </div>
+            {% endif %}
             <div class="inputbox" id="password">
                 <label>Password</label>
                 <input type="password" name="password" required>
@@ -14,10 +19,20 @@
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password" required>
             </div>
+            {% if error %}
+                <div class="error" id="password_error">
+                    <h2>{{ error.confirmed_password }}</h2>
+                </div>
+            {% endif %}
             <div class="inputbox" id="email">
                 <label>E-mail</label>
                 <input type="text" name="email" required>
             </div>
+            {% if error %}
+                <div class="error" id="email_error">
+                    <h2>{{ error.email_error }}</h2>
+                </div>
+            {% endif %}
             <div>
                 <button type="submit" class="button" id="submit">Button</button>
             </div>

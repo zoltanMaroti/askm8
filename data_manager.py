@@ -206,3 +206,12 @@ def get_users(cursor):
                     """)
     usernames = cursor.fetchall()
     return usernames
+
+
+@connection.connection_handler
+def get_emails(cursor):
+    cursor.execute("""
+                    SELECT email from users;
+                    """)
+    emails = cursor.fetchall()
+    return emails
