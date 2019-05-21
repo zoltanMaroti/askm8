@@ -4,15 +4,13 @@
     <div id="login">
         <form action="/login" method="post">
             <div>
-                <input type="text" id="login_user" name="username" placeholder="username">
+                <input type="text" id="login_user" name="username" placeholder="username" required>
             </div>
             <div>
-                <input type="password" id="login_password" name="password" placeholder="password">
+                <input type="password" id="login_password" name="password" placeholder="password" required>
             </div>
             <div>
                 <button class="button" id="submit" type="submit" name="submit">Log in</button>
-            </div>
-            <div>
                 <button class="button" id="register"><a href="/register">Register</a></button>
             </div>
         </form>
