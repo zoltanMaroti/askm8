@@ -1,6 +1,7 @@
 from psycopg2 import sql
 
 import connection
+import util
 
 
 @connection.connection_handler
@@ -65,6 +66,7 @@ def last_questions(cursor, amount):
     return last_question
 
 
+
 @connection.connection_handler
 def add_new_question(cursor, detail):
     cursor.execute("""
@@ -89,6 +91,16 @@ def add_new_comment(cursor, detail):
                     INSERT INTO comment (question_id, message, submission_time, edited_number)
                     VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s);
                     """, detail)
+
+
+
+'''@connection.connection_handler
+def insert_data(cursor, table, data):
+    values = util.make_string(data)
+    cursor.execute(sql.SQL(("""
+                       INSERT INTO {table}
+                       VALUES (%(values)s);
+                       """).format(table=sql.SQL(table), values=sql.SQL(values))))'''
 
 
 @connection.connection_handler
