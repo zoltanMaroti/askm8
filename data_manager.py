@@ -179,3 +179,21 @@ def view_counter(cursor, id):
                    SET view_number = view_number + 1
                    WHERE id = %(id)s;
                    """, {'id': id})
+
+
+@connection.connection_handler
+def save_user_data(cursor, username, hashed_pass, email):
+    cursor.execute("""
+                    INSERT INTO users (username, password, email)
+                    VALUES (%(username)s, %(password)s, %(email)s)
+                    """, {'username': username, 'password': hashed_pass, 'email': email})
+
+
+@connection.connection_handler
+def get_hash(cursor, username):
+    cursor.execute("""
+                    SELECT password FROM users
+                    WHERE username = %(username)s
+                    """, {'username': username})
+    hash = cursor.fetchall()
+    return hash

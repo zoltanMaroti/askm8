@@ -78,10 +78,10 @@ body a, p{
     color: #edc139;
 }
 
-#title a:hover{
+#title h2:hover{
     border: 2px solid #edc139;
     padding: 10px;
-}
+} /*it was 'a'*/
 
 .grid{
     margin: 10px;

@@ -1,6 +1,6 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
 import data_manager
-from util import get_current_datetime
+import util
 
 app = Flask(__name__)
 
@@ -32,7 +32,7 @@ def view_question(question_id):
 @app.route('/question/<question_id>', methods=['POST'])
 def view_question_post(question_id):
     new_answer = {
-        'submission_time': get_current_datetime(),
+        'submission_time': util.get_current_datetime(),
         'vote_number': 0,
         'question_id': question_id,
         'message': request.form['message'],
@@ -125,9 +125,22 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/register')
+@app.route('/register', methods=['POST', 'GET'])
 def register():
-    return render_template('register.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+        email = request.form['email']
+        confirmed_password = util.check_password(password, confirm_password)
+        if confirmed_password is True:
+            hashed_pass = util.hash_pass(password)
+            data_manager.save_user_data(username=username, hashed_pass=hashed_pass, email=email)
+            return redirect(url_for('login'))
+        else:
+            return render_template('/')#TODO error message IS A MUST
+    else:
+        return render_template('register.html')
 
 
 if __name__ == '__main__':
