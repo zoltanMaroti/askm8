@@ -14,7 +14,7 @@
     <div class="header">
         <div id="user_status">
             {% if session %}
-                <p>Welcome {{ session['username'] }}!</p>
+                <p>Hi there, {{ session['username'] }}!</p>
                 <a href="/logout">Logout</a>
             {% else %}
                 <a href="/login">Login</a>

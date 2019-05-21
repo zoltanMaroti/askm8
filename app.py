@@ -125,16 +125,16 @@ def upvote_answer(question_id, answer_id, vote_number):
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        session['username'] = request.form['username']
         username = request.form['username']
         password = request.form['password']
         saved_password = data_manager.get_hash(username)
-        user_status = util.verify_password(password, saved_password['password'])
-        if user_status is True:
+        is_valid = util.verify_password(password, saved_password['password'])
+        if is_valid:
+            session['username'] = request.form['username']
             return redirect(url_for('show_limited_question'))
         else:
-            message = 'Invalid username / password!'
-            return render_template('login.html', message=message)
+            error_message = 'Invalid username / password!'
+            return render_template('login.html', message=error_message)
 
     return render_template('login.html')
 
