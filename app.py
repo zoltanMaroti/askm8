@@ -11,19 +11,14 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def show_all_questions():
     order_column = request.args.get('selection', 'submission_time')
     order_direction = request.args.get('order', 'DESC')
-
     questions = data_manager.sort_questions(order_column, order_direction)
     return render_template('list.html', questions=questions, selection=order_column, order=order_direction)
 
 
 @app.route('/')
 def show_limited_question():
-    if 'username' in session:
-        username = session['username']
-    else:
-        username = False
     questions = data_manager.last_questions(5)
-    return render_template('list.html', questions=questions, limit='limited', username=username)
+    return render_template('list.html', questions=questions, limit='limited')
 
 
 @app.route('/question/<question_id>')
@@ -136,7 +131,7 @@ def login():
         saved_password = data_manager.get_hash(username)
         user_status = util.verify_password(password, saved_password['password'])
         if user_status is True:
-            return redirect(url_for('show_all_questions'))
+            return redirect(url_for('show_limited_question'))
         else:
             message = 'Invalid username / password!'
             return render_template('login.html', message=message)
@@ -165,7 +160,7 @@ def register():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    return redirect(url_for('show_all_questions'))
+    return redirect(url_for('show_limited_question'))
 
 
 if __name__ == '__main__':

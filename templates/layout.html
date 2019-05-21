@@ -12,6 +12,16 @@
 <body>
 <div class="container">
     <div class="header">
+        <div id="user_status">
+            {% if session %}
+                <p>Welcome {{ session['username'] }}!</p>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
+        </div>
+
+
         <div id="logo">
             {% if title %}
                 <header><a href="/">KekM8 - {{ title }}</a></header>
@@ -19,26 +29,13 @@
                 <header><a href="/">Welcome to Kekm8!</a></header>
             {% endif %}
         </div>
-        <div id="authentication">
-            <div>
-                <button class="button" id="register"><a href="/register">Register</a></button>
-            </div>
-            <div>
-                <button class="button" id="logout"><a href="/logout">Logout</a></button>
-            </div>
-        </div>
+
         <div id="nav">
             <div>
                 <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
             </div>
+
             <div>
-                {% if username %}
-                    <p>Welcome {{ username }}!</p>
-                {% else %}
-                    <div>
-                        <button class="button" id="login"><a href="/login">Login</a></button>
-                    </div>
-                {% endif %}
                 <form action="/result" id="search" name="search" method="post">
                     <input id="search" name="search" type="text" placeholder="&#128269; Search...">
                 </form>
