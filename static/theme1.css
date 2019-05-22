@@ -269,3 +269,26 @@ body a, p{
     padding: 10px;
 }
 
+/*Register*/
+.register_page{
+    margin: auto;
+    box-shadow: 0px 10px 25px 15px black;
+    width: 50%;
+    text-align: center;
+}
+
+.input_box{
+    display: grid;
+    margin-top: 1em;
+    padding: 5px;
+    grid-row-gap: 5px;
+}
+
+.input_box label{
+    color: #f1f2f2;
+}
+
+/*Errors*/
+.error p{
+    color: red;
+}

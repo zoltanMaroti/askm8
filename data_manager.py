@@ -198,3 +198,20 @@ def get_hash(cursor, username):
     hash = cursor.fetchone()
     return hash
 
+
+@connection.connection_handler
+def get_users(cursor):
+    cursor.execute("""
+                    SELECT username from users;
+                    """)
+    usernames = cursor.fetchall()
+    return usernames
+
+
+@connection.connection_handler
+def get_emails(cursor):
+    cursor.execute("""
+                    SELECT email from users;
+                    """)
+    emails = cursor.fetchall()
+    return emails
