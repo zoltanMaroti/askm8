@@ -65,5 +65,5 @@ def check_login(username, password):
     except TypeError:
         return True
     name_check = name_in_use(username)
-    if is_forbidden is False and name_check is False and is_valid is True:
+    if is_forbidden is False and name_check is True and is_valid is True:
         return False
