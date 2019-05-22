@@ -4,21 +4,19 @@
     <div id="login">
         <form action="/login" method="post">
             <div>
-                <p>Username</p>
+                <input type="text" id="login_user" name="username" placeholder="username" required>
             </div>
             <div>
-                <input id="login_user" name="username">
-            </div>
-            <div>
-                <p>Password</p>
-            </div>
-            <div>
-                <input id="login_password" name="password">
+                <input type="password" id="login_password" name="password" placeholder="password" required>
             </div>
             <div>
                 <button class="button" id="submit" type="submit" name="submit">Log in</button>
+                <button class="button" id="register"><a href="/register">Register</a></button>
             </div>
         </form>
+        {% if message %}
+            {{ message }}
+        {% endif %}
     </div>
 
 {% endblock %}

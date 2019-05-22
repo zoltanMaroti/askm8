@@ -78,10 +78,10 @@ body a, p{
     color: #edc139;
 }
 
-#title a:hover{
+#title h2:hover{
     border: 2px solid #edc139;
     padding: 10px;
-}
+} /*it was 'a'*/
 
 .grid{
     margin: 10px;
@@ -120,6 +120,14 @@ body a, p{
 /*-navbar*/
 
 #nav{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align:center;
+    grid-template-rows: 2em;
+    padding: 10px;
+}
+
+#user_status{
     display: grid;
     grid-template-columns: 1fr 1fr;
     text-align:center;
@@ -261,3 +269,26 @@ body a, p{
     padding: 10px;
 }
 
+/*Register*/
+.register_page{
+    margin: auto;
+    box-shadow: 0px 10px 25px 15px black;
+    width: 50%;
+    text-align: center;
+}
+
+.input_box{
+    display: grid;
+    margin-top: 1em;
+    padding: 5px;
+    grid-row-gap: 5px;
+}
+
+.input_box label{
+    color: #f1f2f2;
+}
+
+/*Errors*/
+.error p{
+    color: red;
+}

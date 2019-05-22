@@ -1,15 +1,16 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for, escape, session
 import data_manager
-from util import get_current_datetime
+import util
+import error_handle
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 @app.route('/list', methods=['GET', 'POST'])
 def show_all_questions():
     order_column = request.args.get('selection', 'submission_time')
     order_direction = request.args.get('order', 'DESC')
-
     questions = data_manager.sort_questions(order_column, order_direction)
     return render_template('list.html', questions=questions, selection=order_column, order=order_direction)
 
@@ -24,18 +25,18 @@ def show_limited_question():
 def view_question(question_id):
     data_manager.view_counter(question_id)
     selected_question = data_manager.get_selected_question(question_id)
-    answers = data_manager.get_ordered_data('answer', 'submission_time', 'ASC')
-    comments = data_manager.get_ordered_data('comment', 'submission_time', 'ASC')
+    answers = data_manager.get_answers()
+    comments = data_manager.get_comments()
     return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question')
 
 
 @app.route('/question/<question_id>', methods=['POST'])
 def view_question_post(question_id):
     new_answer = {
-        'submission_time': get_current_datetime(),
+        'submission_time': util.get_current_datetime(),
         'vote_number': 0,
         'question_id': question_id,
-        'message': request.form['message'],
+        'message': escape(request.form['message']),
     }
     data_manager.add_new_answer(new_answer)
     return redirect(request.url)
@@ -48,11 +49,11 @@ def add_question():
 
     if request.method == 'POST':
         new_question = {
-            'submission_time': get_current_datetime(),
+            'submission_time': util.get_current_datetime(),
             'view_number': 0,
             'vote_number': 0,
-            'title': request.form['title'],
-            'message': request.form['message']
+            'title': escape(request.form['title']),
+            'message': escape(request.form['message'])
         }
         data_manager.add_new_question(new_question)
         return redirect('/')
@@ -86,8 +87,8 @@ def edit_question(question_id):
 @app.route('/result', methods=['GET', 'POST'])
 def show_result():
     if request.method == 'POST':
-        questions = data_manager.get_ordered_data('question', 'submission_time', 'DESC')
-        result = data_manager.get_result(request.form['search'])
+        questions = data_manager.get_questions()
+        result = data_manager.get_result(escape(request.form['search']))
         return render_template("result.html", results=result, title='Results', questions=questions)
 
 
@@ -97,8 +98,8 @@ def add_comment(question_id):
     if request.method == 'POST':
         new_comment = {
             'question_id': question_id,
-            'message': request.form['message'],
-            'submission_time': get_current_datetime(),
+            'message': escape(request.form['message']),
+            'submission_time': util.get_current_datetime(),
             'edited_number': 0
         }
         data_manager.add_new_comment(new_comment)
@@ -120,14 +121,42 @@ def upvote_answer(question_id, answer_id, vote_number):
     return redirect(request.referrer)
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        error = error_handle.check_login(username=username, password=password)
+        if error is False:
+            session['username'] = request.form['username']
+            return redirect(url_for('show_limited_question'))
+        else:
+            error_message = 'Invalid username / password!'
+            return render_template('login.html', message=error_message)
+
     return render_template('login.html')
 
 
-@app.route('/register')
+@app.route('/register', methods=['POST', 'GET'])
 def register():
-    return render_template('register.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+        email = request.form['email']
+        errors = error_handle.check_error(username=username, password=password, confirm_password=confirm_password, email=email)
+        if errors is not None:
+            return render_template('register.html', error=errors) #TODO fix this shit
+        hashed_pass = util.hash_pass(password)
+        data_manager.save_user_data(username=username, hashed_pass=hashed_pass, email=email)
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Registration')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('show_limited_question'))
 
 
 if __name__ == '__main__':
