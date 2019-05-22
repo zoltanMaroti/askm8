@@ -44,6 +44,7 @@ def view_question_post(question_id):
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
+    user_id = util.get_user_id_session()
     if request.method == 'GET':
         return render_template('add-question.html', title='Ask Something')
 
@@ -53,7 +54,8 @@ def add_question():
             'view_number': 0,
             'vote_number': 0,
             'title': escape(request.form['title']),
-            'message': escape(request.form['message'])
+            'message': escape(request.form['message']),
+            'user_id': user_id
         }
         data_manager.add_new_question(new_question)
         return redirect('/')

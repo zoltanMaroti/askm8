@@ -1,5 +1,14 @@
 from datetime import datetime
+from flask import session
+import data_manager
 import bcrypt
+
+
+def get_user_id_session():
+    if session['username'] is not None:
+        user_id = data_manager.get_user_id(session['username'])
+        return user_id['id']
+    return 0
 
 
 def get_current_datetime():
