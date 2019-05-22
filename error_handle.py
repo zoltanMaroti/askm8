@@ -10,7 +10,7 @@ def is_error_occur(username, email, confirmed_password, forbidden_char):
         errors[1]['email_error'] = 'Can\'t use that e-mail!'
     if confirmed_password is False:
         errors[2]['confirmed_password'] = 'It\'s not the same'
-    if forbidden_char is False:
+    if forbidden_char is True:
         errors[3]['forbidden_char'] = 'Forbidden Character!'
 
     return errors
