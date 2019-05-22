@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-    {% if session %} {# TODO userdependencie #}
+    {% if session.user_id == question.user_id %}
         <div id="new_comment">
             <div id="comment_info">
                 <div>

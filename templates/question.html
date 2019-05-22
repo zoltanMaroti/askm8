@@ -23,7 +23,7 @@
                     <div>
                         <a href="/question/{{ question.id }}/new-comment"><button class="button">Comment</button></a>
                     </div>
-                    {% if session.id != question.user_id %} {# TODO need userdependencie #}
+                    {% if session.user_id == question.user_id %}
                         <div>
                            <a href="/question/{{question.id}}/edit"><button class="button">Edit</button></a>
                         </div>
@@ -67,7 +67,7 @@
                                 {% if session %}
                                     <a href="{{ question.id }}/{{ answer.id }}/{{ answer.vote_number }}"><button class="button">upvote</button></a>
                                 {% endif %}
-                                {% if session %}  {# TODO need userdependence #}
+                                {% if session.user_id == answers.user_id %}
                                     <a href="/question/{{question.id}}/{{ answer.id }}/edit"><button class="button">edit</button></a>
                                 {% endif %}
                         </div>

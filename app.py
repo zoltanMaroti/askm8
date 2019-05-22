@@ -32,7 +32,6 @@ def view_question(question_id):
 
 @app.route('/question/<question_id>', methods=['POST'])
 def view_question_post(question_id):
-    # user_id = util.get_user_id_session()
     new_answer = {
         'submission_time': util.get_current_datetime(),
         'vote_number': 0,
@@ -46,7 +45,6 @@ def view_question_post(question_id):
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
-    user_id = util.get_user_id_session()
     if request.method == 'GET':
         return render_template('add-question.html', title='Ask Something')
 
@@ -57,7 +55,7 @@ def add_question():
             'vote_number': 0,
             'title': escape(request.form['title']),
             'message': escape(request.form['message']),
-            'user_id': user_id
+            'user_id': session['user_id']
         }
         data_manager.add_new_question(new_question)
         return redirect('/')
@@ -105,7 +103,7 @@ def add_comment(question_id):
             'message': escape(request.form['message']),
             'submission_time': util.get_current_datetime(),
             'edited_number': 0,
-            'user_id': session['id']
+            'user_id': session['user_id']
         }
         data_manager.add_new_comment(new_comment)
         return redirect('/question/' + question_id)
@@ -140,7 +138,7 @@ def login():
             error_message = 'Invalid username / password!'
             return render_template('login.html', message=error_message)
 
-    return render_template('login.html')
+    return render_template('login.html', title='No Lollygaggin')
 
 
 @app.route('/register', methods=['POST', 'GET'])
