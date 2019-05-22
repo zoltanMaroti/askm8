@@ -1,16 +1,26 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div class="edit">
-        <form action="/question/{{ question.id }}/edit" method="post">
-            <div id="title">
-                <input id="titlebox" name="title" value="{{ question.title }}">
-            </div>
-            <div id="textarea">
-                <textarea id="message" name="message" rows="5" cols="80">{{ question.message }}</textarea>
-            </div>
-            <div>
-                <button class="button" type="submit" name="submit">Submit</button>
-            </div>
-        </form>
-    </div>
+    {% if session %} {# TODO user dependencie #}
+        <div class="edit">
+            <form action="/question/{{ question.id }}/edit" method="post">
+                <div id="title">
+                    <input id="titlebox" name="title" value="{{ question.title }}">
+                </div>
+                <div id="textarea">
+                    <textarea id="message" name="message" rows="5" cols="80">{{ question.message }}</textarea>
+                </div>
+                <div>
+                    <button class="button" type="submit" name="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    {% elif session %}
+        <div class="error_msg">
+            <p>U can`t edit this question</p>
+        </div>
+    {% else %}
+        <div class="error_msg" id="indexbox">
+            <p>Please log in first!</p>
+        </div>
+    {% endif %}
 {% endblock %}
