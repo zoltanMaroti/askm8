@@ -32,11 +32,13 @@ def view_question(question_id):
 
 @app.route('/question/<question_id>', methods=['POST'])
 def view_question_post(question_id):
+    user_id = util.get_user_id_session()
     new_answer = {
         'submission_time': util.get_current_datetime(),
         'vote_number': 0,
         'question_id': question_id,
         'message': escape(request.form['message']),
+        'user_id': user_id
     }
     data_manager.add_new_answer(new_answer)
     return redirect(request.url)
@@ -44,6 +46,7 @@ def view_question_post(question_id):
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
+    user_id = util.get_user_id_session()
     if request.method == 'GET':
         return render_template('add-question.html', title='Ask Something')
 
@@ -53,7 +56,8 @@ def add_question():
             'view_number': 0,
             'vote_number': 0,
             'title': escape(request.form['title']),
-            'message': escape(request.form['message'])
+            'message': escape(request.form['message']),
+            'user_id': user_id
         }
         data_manager.add_new_question(new_question)
         return redirect('/')
@@ -94,13 +98,15 @@ def show_result():
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_comment(question_id):
+    user_id = util.get_user_id_session()
     selected_question = data_manager.get_selected_question(question_id)
     if request.method == 'POST':
         new_comment = {
             'question_id': question_id,
             'message': escape(request.form['message']),
             'submission_time': util.get_current_datetime(),
-            'edited_number': 0
+            'edited_number': 0,
+            'user_id': user_id
         }
         data_manager.add_new_comment(new_comment)
         return redirect('/question/' + question_id)
