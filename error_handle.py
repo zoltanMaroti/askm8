@@ -2,20 +2,6 @@ import data_manager
 import util
 
 
-def is_error_occur(username, email, confirmed_password, forbidden_char):
-    errors = ({'name_error': 'ok'}, {'email_error': 'ok'}, {'confirmed_password': 'ok'}, {'forbidden_char': 'ok'})
-    if name_in_use(username) is True:
-        errors[0]['name_error'] = 'Can\'t use that name!'
-    if email_in_use(email) is True:
-        errors[1]['email_error'] = 'Can\'t use that e-mail!'
-    if confirmed_password is False:
-        errors[2]['confirmed_password'] = 'It\'s not the same'
-    if forbidden_char is True:
-        errors[3]['forbidden_char'] = 'Forbidden Character!'
-
-    return errors
-
-
 def name_in_use(username):
     usernames = data_manager.get_users()
     for user in usernames:
@@ -32,21 +18,26 @@ def email_in_use(email):
     return False
 
 
-def get_error_messages(errors):
-    error_mssgs = []
-    for error in errors:
-        for key in error.keys():
-            if error[key] != 'ok':
-                error_mssgs.append((key, error[key]))
-    return error_mssgs
+def explain_errors(username, confirmed_password, email, forbidden_char):
+    errors = {}
+    if name_in_use(username) is True:
+        errors.update({'name_error': 'Can\'t use that name!'})
+    if email_in_use(email) is True:
+        errors.update({'email_error': 'Can\'t use that e-mail!'})
+    if confirmed_password is False:
+        errors.update({'confirm_password_error': 'It\'s not the same'})
+    if forbidden_char is True:
+        errors.update({'character_error': 'Forbidden Character!'})
+    return errors
 
 
 def check_error(username, password, confirm_password, email):
-    forbidden = forbidden_char(username=username, password=password, confirm_password=confirm_password, email=email)
-    confirmed_password = util.check_password(password, confirm_password)
-    errors = is_error_occur(username=username, confirmed_password=confirmed_password, email=email, forbidden_char=forbidden)
-    error_messages = get_error_messages(errors)
-    return error_messages
+    is_forbidden = forbidden_char(username=username, password=password, confirm_password=confirm_password, email=email)
+    is_confirmed_password = util.check_password(password, confirm_password)
+    errors = explain_errors(username=username, confirmed_password=is_confirmed_password, email=email, forbidden_char=is_forbidden)
+    if len(errors.keys()) > 0:
+        return errors
+    return None
 
 
 def forbidden_char(username, password, confirm_password, email):

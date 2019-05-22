@@ -8,7 +8,7 @@
             </div>
             {% if error %}
                 <div class="error" id="name_error">
-                    <p>!ERROR!</p>
+                    <p>{{ error.name_error }}</p>
                 </div>
             {% endif %}
             <div class="input_box" id="password">
@@ -21,7 +21,7 @@
             </div>
             {% if error %}
                 <div class="error" id="password_error">
-                    <p>!ERROR!</p>
+                    <p>{{ error.confirm_password_error }}</p>
                 </div>
             {% endif %}
             <div class="input_box" id="email">
@@ -30,12 +30,12 @@
             </div>
             {% if error %}
                 <div class="error" id="email_error">
-                    <p>!ERROR!</p>
+                    <p>{{ error.email_error }}</p>
                 </div>
             {% endif %}
             {% if error %}
                 <div class="error" id="forbidden">
-                    <p>!ERROR!</p>
+                    <p>{{ error.character_error }}</p>
                 </div>
             {% endif %}
             <div>

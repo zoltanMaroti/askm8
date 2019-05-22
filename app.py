@@ -146,7 +146,7 @@ def register():
         confirm_password = request.form['confirm_password']
         email = request.form['email']
         errors = error_handle.check_error(username=username, password=password, confirm_password=confirm_password, email=email)
-        if len(errors) > 0:
+        if errors is not None:
             return render_template('register.html', error=errors) #TODO fix this shit
         hashed_pass = util.hash_pass(password)
         data_manager.save_user_data(username=username, hashed_pass=hashed_pass, email=email)
