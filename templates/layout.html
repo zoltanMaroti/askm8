@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     {% if title %}
-        <title>AskM8 - {{ title }}</title>
+        <title>KekM8 - {{ title }}</title>
     {% else %}
-        <title>AskM8</title>
+        <title>KekM8</title>
     {% endif %}
     <link rel='stylesheet'  type='text/css'  href='/static/theme1.css'>
 </head>
 <body>
 <div class="container">
     <div class="header">
+
         <div id="user_status">
             {% if session %}
                 <p>Hi there, {{ session['username'] }}!</p>
@@ -20,7 +21,6 @@
                 <a href="/login">Login</a>
             {% endif %}
         </div>
-
 
         <div id="logo">
             {% if title %}
@@ -31,10 +31,13 @@
         </div>
 
         <div id="nav">
-            <div>
-                <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
-            </div>
-
+            {% if session %}
+                <div>
+                    <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
+                </div>
+            {% else %}
+                <div></div>
+            {% endif %}
             <div>
                 <form action="/result" id="search" name="search" method="post">
                     <input id="search" name="search" type="text" placeholder="&#128269; Search...">
@@ -42,6 +45,7 @@
             </div>
         </div>
     </div>
+
     <div class="content_block">
         {% block content %} {% endblock %}
     </div>

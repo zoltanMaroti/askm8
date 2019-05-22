@@ -1,25 +1,31 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div id="new_comment">
-        <div id="comment_info">
-{#            <div>#}
-{#                <h1>Kek you comment</h1>#}
-{#            </div>#}
+    {% if session %} {# TODO userdependencie #}
+        <div id="new_comment">
+            <div id="comment_info">
+                <div>
+                    <h2>{{ question.title }}</h2>
+                    <p>{{ question.message }}</p>
+                </div>
+            </div>
             <div>
-                <h2>{{ question.title }}</h2>
-                <p>{{ question.message }}</p>
+                <form action="/question/{{ question.id }}/new-comment" method="post">
+                    <div>
+                        <textarea id="message" name="message" rows="5" cols="50" placeholder="Comment goes here"></textarea>
+                    </div>
+                    <div>
+                        <button class="button" id="submit" type="submit" name="submit">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <div>
-            <form action="/question/{{ question.id }}/new-comment" method="post">
-                <div>
-                    <textarea id="message" name="message" rows="5" cols="50" placeholder="Comment goes here"></textarea>
-                </div>
-                <div>
-                    <button class="button" id="submit" type="submit" name="submit">Submit</button>
-                </div>
-            </form>
+    {% elif session %}
+        <div class="error_msg">
+            <p>U can`t edit this question</p>
         </div>
-    </div>
-
+    {% else %}
+        <div class="error_msg" id="indexbox">
+            <p>Please log in first!</p>
+        </div>
+    {% endif %}
 {% endblock %}

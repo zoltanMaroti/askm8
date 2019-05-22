@@ -1,23 +1,33 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div id="answeredit">
-        <div>
+    {% if session %} {# TODO userdependencie #}
+        <div id="answeredit">
             <div>
-                <h2>{{ question.title }}</h2>
-            </div>
-            <div>
-                <p>{{ question.message }}</p>
-            </div>
-        </div>
-        <div>
-            <form action="/question/{{ question.id }}/{{ answer.id }}/edit" method="post">
                 <div>
-                    <textarea id="message" name="message" rows="2" cols="50">{{ answer.message }}</textarea>
+                    <h2>{{ question.title }}</h2>
                 </div>
                 <div>
-                    <button class="button" id="submit" type="submit" name="submit">submit</button>
+                    <p>{{ question.message }}</p>
                 </div>
-            </form>
+            </div>
+            <div>
+                <form action="/question/{{ question.id }}/{{ answer.id }}/edit" method="post">
+                    <div>
+                        <textarea id="message" name="message" rows="2" cols="50">{{ answer.message }}</textarea>
+                    </div>
+                    <div>
+                        <button class="button" id="submit" type="submit" name="submit">submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+        {% elif session %}
+        <div class="error_msg">
+            <p>U can`t edit this answer</p>
+        </div>
+    {% else %}
+        <div class="error_msg" id="indexbox">
+            <p>Please log in first!</p>
+        </div>
+    {% endif %}
 {% endblock %}
