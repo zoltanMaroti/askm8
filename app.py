@@ -32,7 +32,7 @@ def view_question(question_id):
 
 @app.route('/question/<question_id>', methods=['POST'])
 def view_question_post(question_id):
-    user_id = util.get_user_id_session()
+    # user_id = util.get_user_id_session()
     new_answer = {
         'submission_time': util.get_current_datetime(),
         'vote_number': 0,
@@ -134,7 +134,8 @@ def login():
         password = request.form['password']
         error = error_handle.check_login(username=username, password=password)
         if error is False:
-            session['username'] = request.form['username']
+            session['username'] = username
+            session['user_id'] = util.get_user_id_session()
             return redirect(url_for('show_limited_question'))
         else:
             error_message = 'Invalid username / password!'
