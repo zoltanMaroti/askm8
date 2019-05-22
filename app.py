@@ -126,9 +126,8 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        saved_password = data_manager.get_hash(username)
-        is_valid = util.verify_password(password, saved_password['password'])
-        if is_valid:
+        error = error_handle.check_login(username=username, password=password)
+        if error is False:
             session['username'] = request.form['username']
             return redirect(url_for('show_limited_question'))
         else:

@@ -40,7 +40,7 @@ def check_error(username, password, confirm_password, email):
     return None
 
 
-def forbidden_char(username, password, confirm_password, email):
+def forbidden_char(username, password='', confirm_password='', email=''):
     forbidden = ['<', '>', ';', '\'', '\"', '\\', '/']
     for char in username:
         if char in forbidden:
@@ -55,3 +55,15 @@ def forbidden_char(username, password, confirm_password, email):
         if char in forbidden:
             return True
     return False
+
+
+def check_login(username, password):
+    is_forbidden = forbidden_char(username)
+    saved_password = data_manager.get_hash(username)
+    try:
+        is_valid = util.verify_password(password, saved_password['password'])
+    except TypeError:
+        return True
+    name_check = name_in_use(username)
+    if is_forbidden is False and name_check is False and is_valid is True:
+        return False
