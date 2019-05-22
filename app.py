@@ -98,7 +98,6 @@ def show_result():
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_comment(question_id):
-    user_id = util.get_user_id_session()
     selected_question = data_manager.get_selected_question(question_id)
     if request.method == 'POST':
         new_comment = {
@@ -106,7 +105,7 @@ def add_comment(question_id):
             'message': escape(request.form['message']),
             'submission_time': util.get_current_datetime(),
             'edited_number': 0,
-            'user_id': user_id
+            'user_id': session['id']
         }
         data_manager.add_new_comment(new_comment)
         return redirect('/question/' + question_id)
