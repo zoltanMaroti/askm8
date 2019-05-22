@@ -209,3 +209,13 @@ def get_emails(cursor):
                     """)
     emails = cursor.fetchall()
     return emails
+
+
+@connection.connection_handler
+def get_user_id(cursor, username):
+    cursor.execute("""
+                    SELECT id FROM users
+                    WHERE username = %(username)s;
+                    """, {'username': username})
+    user_id = cursor.fetchone()
+    return user_id
