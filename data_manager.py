@@ -78,8 +78,8 @@ def add_new_question(cursor, detail):
 @connection.connection_handler
 def add_new_answer(cursor, detail):
     cursor.execute("""
-                    INSERT INTO answer (submission_time, vote_number, question_id, message) 
-                    VALUES (%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s)
+                    INSERT INTO answer (submission_time, vote_number, question_id, message, user_id) 
+                    VALUES (%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s, %(user_id)s)
                     """,
                    detail)
 
@@ -87,8 +87,8 @@ def add_new_answer(cursor, detail):
 @connection.connection_handler
 def add_new_comment(cursor, detail):
     cursor.execute("""
-                    INSERT INTO comment (question_id, message, submission_time, edited_number)
-                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s);
+                    INSERT INTO comment (question_id, message, submission_time, edited_number, user_id)
+                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s, %(user_id)s);
                     """, detail)
 
 
