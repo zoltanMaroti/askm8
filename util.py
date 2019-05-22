@@ -5,7 +5,7 @@ import bcrypt
 
 
 def get_user_id_session():
-    if session['username'] is not None:
+    if session:
         user_id = data_manager.get_user_id(session['username'])
         return user_id['id']
     return 0

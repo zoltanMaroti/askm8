@@ -66,12 +66,11 @@ def last_questions(cursor, amount):
     return last_question
 
 
-
 @connection.connection_handler
 def add_new_question(cursor, detail):
     cursor.execute("""
-                   INSERT INTO question (submission_time, view_number, vote_number, title, message)
-                   VALUES (%(submission_time)s, %(view_number)s, %(vote_number)s, %(title)s, %(message)s)
+                   INSERT INTO question (submission_time, view_number, vote_number, title, message, user_id)
+                   VALUES (%(submission_time)s, %(view_number)s, %(vote_number)s, %(title)s, %(message)s, %(user_id)s)
                    """,
                    detail)
 
