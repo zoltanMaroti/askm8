@@ -66,7 +66,6 @@ def last_questions(cursor, amount):
     return last_question
 
 
-
 @connection.connection_handler
 def add_new_question(cursor, detail):
     cursor.execute("""
