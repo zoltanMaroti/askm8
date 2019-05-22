@@ -50,7 +50,7 @@ def check_error(username, password, confirm_password, email):
 
 
 def forbidden_char(username, password, confirm_password, email):
-    forbidden = ['<', '>', ';', '\'', '\"', '\\', '/', ]
+    forbidden = ['<', '>', ';', '\'', '\"', '\\', '/']
     for char in username:
         if char in forbidden:
             return True
