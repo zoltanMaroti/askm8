@@ -38,7 +38,7 @@ def view_question_post(question_id):
         'vote_number': 0,
         'question_id': question_id,
         'message': escape(request.form['message']),
-        'user_id': user_id
+        'user_id': session['user_id']
     }
     data_manager.add_new_answer(new_answer)
     return redirect(request.url)
