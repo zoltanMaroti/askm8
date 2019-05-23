@@ -22,7 +22,6 @@ body a, p {
 }
 
 .button:hover {
-    border: none;
     background-color: #edc139;
     color: #2d3443;
 }
@@ -108,11 +107,6 @@ body a, p {
 .edit #title:hover {
     border: 0;
 }
-
-.answer #textarea {
-    width: 98%;
-}
-
 
 .grid {
     margin: 10px;
@@ -212,6 +206,12 @@ body a, p {
     padding: 5px 10px;
 }
 
+#comment_buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    padding: 10px;
+}
 
 #answers {
     margin-top: 10px;
@@ -231,6 +231,21 @@ body a, p {
 
 .answer p {
     font-size: 13px;
+}
+
+#answer_buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#edit\/delet{
+    display: grid;
+    padding: 5px;
+    grid-row-gap: 5px;
+}
+
+#comment_a{
+    display: grid;
 }
 
 /*Add question*/
@@ -308,6 +323,7 @@ body a, p {
     margin-bottom: 1em;
     color: #2d3443;
     padding: 5px;
+    width: 80%;
 }
 
 #titlebox {
