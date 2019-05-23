@@ -15,11 +15,11 @@
             </form>
         </div>
     {% elif session %}
-        <div class="error_msg">
+        <div class="error_msg" id="no_access">
             <p>U can`t edit this question</p>
         </div>
     {% else %}
-        <div class="error_msg" id="indexbox">
+        <div class="error_msg" id="return_login">
             <p>Please log in first!</p>
         </div>
     {% endif %}
