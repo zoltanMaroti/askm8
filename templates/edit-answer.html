@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
 {% block content %}
     {% if session %}
-        {% if session.user_id != question.user_id %}
+        {% if session.user_id != answer.user_id %}
             <div class="error_msg" id="no_access">
-                <p>U can`t edit this answer</p>
+                <p>U can`t edit this {{ table }}</p>
             </div>
         {% else %}
             <div id="answeredit">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div>
-                    <form action="/question/{{ question.id }}/{{ answer.id }}/edit" method="post">
+                    <form action="/question/{{ question.id }}/{{ table }}/{{ answer.id }}/edit" method="post">
                         <div>
                             <textarea id="message" name="message" rows="2" cols="50">{{ answer.message }}</textarea>
                         </div>
