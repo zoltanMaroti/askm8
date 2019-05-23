@@ -49,11 +49,10 @@ def get_selected_comment(cursor, id):
 
 @connection.connection_handler
 def get_selected_row(cursor, id, table):
-    cursor.execute('''
-                    SELECT * FROM %(table)s
-                    WHERE id = %(id)s;
-                    ''',
-                   {'id': id, 'table': table})
+    cursor.execute(sql.SQL('''
+                    SELECT * FROM {table}
+                    WHERE id = {id};
+                    ''').format(id=sql.SQL(id), table=sql.SQL(table)))
     selected_row = cursor.fetchall()
     return selected_row
 
@@ -166,11 +165,10 @@ def delete_question_and_answer(cursor, id):
 
 @connection.connection_handler
 def delete_row(cursor, id, table):
-    cursor.execute("""
-                    DELETE FROM %(table)s
-                    WHERE id = %(id)s
-                    """,
-                   {'id': id, 'table': table})
+    cursor.execute(sql.SQL("""
+                    DELETE FROM {table}
+                    WHERE id = {id}
+                    """).format(id=sql.SQL(id), table=sql.SQL(table)))
 
 
 '''
