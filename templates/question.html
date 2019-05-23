@@ -67,39 +67,50 @@
                             {{ comment.submission_time }}
                         </p>
                     </div>
+                    <div>
+                        {% if session.user_id == comment.user_id %}
+                            <div>
+                                <a href="/question/{{question.id}}/comment/{{ comment.id }}/edit"><button class="button">edit</button></a>
+                            </div>
+                            <div>
+                                <a href="/question/{{ question.id }}/comment/{{ comment.id }}/delete"><button class="button">delete</button></a>
+                            </div>
+                        {% endif %}
+                    </div>
                 {% endif %}
             {% endfor %}
         </div>
         <!--Answer Section-->
         <div id="answers">
-            {% for answer in answers %}
-                {% if answer.question_id == question.id -%}
-                    <div class="answer">
-                        <div>
-                            <h2>{{ answer.message }}</h2>
+                {% for answer in answers %}
+                    {% if answer.question_id == question.id -%}
+                        <div class="answer">
+                            <div>
+                                <h2>{{ answer.message }}</h2>
+                            </div>
+                            <div>
+                                <p> &#x1f44d;: {{ answer.vote_number }} &#x1F557;: {{ answer.submission_time }}</p>
+                            </div>
+                            <div>
+                                {% if session %}
+                                    <a href="{{ question.id }}/{{ answer.id }}/{{ answer.vote_number }}"><button class="button">upvote</button></a>
+                                {% endif %}
+                                {% if session.user_id == answer.user_id %}
+                                    <div>
+                                        <a href="/question/{{question.id}}/answer/{{ answer.id }}/edit"><button class="button">edit</button></a>
+                                    </div>
+                                    <div>
+                                        <a href="/question/{{ question.id }}/answer/{{ answer.id }}/delete"><button class="button">delete</button></a>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div>
-                            <p> &#x1f44d;: {{ answer.vote_number }} &#x1F557;: {{ answer.submission_time }}</p>
-                        </div>
-                        <div>
-                            {% if session %}
-                                <a href="{{ question.id }}/{{ answer.id }}/{{ answer.vote_number }}">
-                                    <button class="button">upvote</button>
-                                </a>
-                            {% endif %}
-                            {% if session.user_id == answer.user_id %}
-                                <a href="/question/{{ question.id }}/{{ answer.id }}/edit">
-                                    <button class="button">edit</button>
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                {%- endif %}
-            {% endfor %}
+                    {%- endif %}
+                {% endfor %}
             {% if session %}
                 <form method="post">
                     <div id="textarea">
-                        <textarea id="message" name="message" rows="5" cols="60" required
+                        <textarea id="message" name="message" rows="5" cols="78" required
                                   placeholder="Answer this question"></textarea>
                     </div>
                     <div>
