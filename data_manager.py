@@ -220,3 +220,12 @@ def get_user_id(cursor, username):
                     """, {'username': username})
     user_id = cursor.fetchone()
     return user_id
+
+@connection.connection_handler
+def get_username(cursor, id):
+    cursor.execute("""
+                    SELECT username FROM users
+                    WHERE id = %(id)s;
+                    """, {'id': id})
+    username = cursor.fetchone()
+    return username

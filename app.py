@@ -25,9 +25,10 @@ def show_limited_question():
 def view_question(question_id):
     data_manager.view_counter(question_id)
     selected_question = data_manager.get_selected_question(question_id)
+    username = data_manager.get_username(selected_question['user_id'])
     answers = data_manager.get_ordered_data('answer', 'submission_time', 'ASC')
     comments = data_manager.get_ordered_data('comment', 'submission_time', 'ASC')
-    return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question')
+    return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question', username=username)
 
 
 @app.route('/question/<question_id>', methods=['POST'])
