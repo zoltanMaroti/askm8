@@ -3,8 +3,8 @@
     <div class="result">
         {% for result in results %}
             {% for question in questions %}
-                {% if question.id == result.id %}
-                    <a href="question/{{ question.id }}">{{ result.title }}</a><br> {# todo br nemkell #}
+                {% if question.id == result.q_id %}
+                    <a href="question/{{ question.id }}">{{ result.q_title }}</a><br> {# todo br nemkell #}
                 {% endif %}
             {% endfor %}
         {% endfor %}
