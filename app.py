@@ -71,10 +71,33 @@ def edit_answer(question_id, answer_id):
     return render_template('edit-answer.html', question=selected_question, answer=selected_answer, title='Edit Answer')
 
 
+@app.route('/question/<question_id>/<comment_id>/edit', methods=['GET', 'POST'])
+def edit_comment(question_id, comment_id):
+    selected_question = data_manager.get_selected_row(question_id, 'question')
+    selected_comment = data_manager.get_selected_row(comment_id, 'comment')
+    if request.method == 'POST':
+        data_manager.edit_comment(comment_id, request.form['message'])
+        return redirect('/question/' + question_id)
+    return  render_template('edit-answer.html',
+                            question=selected_question, answer=selected_comment, title='Edit Comment')
+
+
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id):
     data_manager.delete_question_and_answer(question_id)
     return redirect('/')
+
+
+@app.route('/question/<question_id>/<answer_id>/delete')
+def delete_answer(question_id, answer_id):
+    data_manager.delete_row(answer_id, 'answer')
+    return redirect('/question/' + question_id)
+
+
+@app.route('/question/<question_id>/<comment_id>/delete')
+def delete_comment(question_id, comment_id):
+    data_manager.delete_row(comment_id, 'comment')
+    return redirect('/question/' + question_id)
 
 
 @app.route('/question/<question_id>/edit', methods=['POST', 'GET'])

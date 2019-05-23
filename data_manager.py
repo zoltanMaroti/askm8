@@ -37,6 +37,28 @@ def get_selected_answer(cursor, id):
 
 
 @connection.connection_handler
+def get_selected_comment(cursor, id):
+    cursor.execute('''
+                    SELECT * FROM comment
+                    WHERE id = %(id)s;
+                    ''',
+                   {'id': id})
+    selected_answer = cursor.fetchone()
+    return selected_answer
+
+
+@connection.connection_handler
+def get_selected_row(cursor, id, table):
+    cursor.execute('''
+                    SELECT * FROM %(table)s
+                    WHERE id = %(id)s;
+                    ''',
+                   {'id': id, 'table': table})
+    selected_row = cursor.fetchall()
+    return selected_row
+
+
+@connection.connection_handler
 def get_result(cursor, search):
     search = '%' + search + '%'
     cursor.execute("""SELECT q.title AS q_title, q.id AS q_id
@@ -124,12 +146,31 @@ def edit_question(cursor, id, title, message):
 
 
 @connection.connection_handler
+def edit_comment(cursor, id, message):
+    cursor.execute("""
+                    UPDATE comment
+                    SET message = %(message)s
+                    WHERE id = %(message)s;
+                    """,
+                   {'id': id, 'message': message})
+
+
+@connection.connection_handler
 def delete_question_and_answer(cursor, id):
     cursor.execute("""
                     DELETE FROM question
                     WHERE id = %(id)s;
                     """,
                    {'id': id})
+
+
+@connection.connection_handler
+def delete_row(cursor, id, table):
+    cursor.execute("""
+                    DELETE FROM %(table)s
+                    WHERE id = %(id)s
+                    """,
+                   {'id': id, 'table': table})
 
 
 '''
