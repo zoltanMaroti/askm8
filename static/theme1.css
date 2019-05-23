@@ -97,8 +97,12 @@ body a, p {
     color: #edc139;
 }
 
+#title{
+    border: 2px solid #2d3443;
+}
+
 #title:hover {
-    border: 2px solid #edc139;
+    border-color: #edc139;
 }
 
 .edit #title:hover {
@@ -113,6 +117,7 @@ body a, p {
 .grid {
     margin: 10px;
     padding-top: 10px;
+    padding-bottom: 10px;
     display: grid;
     grid-template-rows: minmax(2em, auto);
     background-color: #2d3443;
