@@ -39,7 +39,7 @@ def get_selected_answer(cursor, id):
 @connection.connection_handler
 def get_result(cursor, search):
     search = '%' + search + '%'
-    cursor.execute("""SELECT q.title AS q_title, q.id AS q_id
+    cursor.execute("""SELECT DISTINCT (q.title) AS q_title, q.id AS q_id
                         FROM question q JOIN answer a on q.id = a.question_id
                               WHERE q.title LIKE %(search)s OR q.message LIKE %(search)s 
                               OR a.message LIKE %(search)s ;""", {"search": search})
