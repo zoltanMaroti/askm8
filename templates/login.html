@@ -9,8 +9,10 @@
                 <input type="password" id="login_password" name="password" placeholder="password" required>
             </div>
             <div class="buttons">
-                <button class="button" id="login" type="submit" name="submit">Log in</button>
-                <button class="button" id="register"><a href="/register">Register</a></button>
+                <div id="fixer"></div>
+                <a id="login_link"><button type="submit" name="submit">Log in</button></a>
+                <a href="{{ url_for('register')  }}" id="register_link">Register</a>
+                <div id="fixer"></div>
             </div>
         </form>
         {% if message %}

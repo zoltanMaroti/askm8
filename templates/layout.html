@@ -13,15 +13,6 @@
 <div class="container">
     <div class="header">
 
-        <div id="user_status">
-            {% if session %}
-                <p>Hi there, {{ session['username'] }}!</p>
-                <a href="/logout">Logout</a>
-            {% else %}
-                <a href="/login">Login</a>
-            {% endif %}
-        </div>
-
         <div id="logo">
             {% if title %}
                 <header><a href="/">KekM8 - {{ title }}</a></header>
@@ -36,12 +27,21 @@
                     <button class="button" id="askbutt"><a href="/add-question">Ask a question</a></button>
                 </div>
             {% else %}
-                <div></div>
+                <div id="fixer"></div>
             {% endif %}
             <div>
                 <form action="/result" id="search" name="search" method="post">
                     <input id="search" name="search" type="text" placeholder="&#128269; Search...">
                 </form>
+            </div>
+            <div id="user_status">
+            {% if session %}
+                <div><a>Hi there, {{ session['username'] }}!</a></div>
+                <div><a href="/logout">Logout</a></div>
+            {% else %}
+                <div><a href="/login">Login</a></div>
+                <div id="fixer"></div>
+            {% endif %}
             </div>
         </div>
     </div>
