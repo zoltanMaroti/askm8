@@ -1,23 +1,35 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div id="answeredit">
-        <div>
-            <div>
-                <h2>{{ question.title }}</h2>
+    {% if session %}
+        {% if session.user_id != question.user_id %}
+            <div class="error_msg" id="no_access">
+                <p>U can`t edit this answer</p>
             </div>
-            <div>
-                <p>{{ question.message }}</p>
-            </div>
-        </div>
-        <div>
-            <form action="/question/{{ question.id }}/{{ answer.id }}/edit" method="post">
+        {% else %}
+            <div id="answeredit">
                 <div>
-                    <textarea id="message" name="message" rows="2" cols="50">{{ answer.message }}</textarea>
+                    <div>
+                        <h2>{{ question.title }}</h2>
+                    </div>
+                    <div>
+                        <p>{{ question.message }}</p>
+                    </div>
                 </div>
                 <div>
-                    <button class="button" id="submit" type="submit" name="submit">submit</button>
+                    <form action="/question/{{ question.id }}/{{ answer.id }}/edit" method="post">
+                        <div>
+                            <textarea id="message" name="message" rows="2" cols="50">{{ answer.message }}</textarea>
+                        </div>
+                        <div>
+                            <button class="button" id="submit" type="submit" name="submit">submit</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="error_msg" id="return_login">
+            <p>Please log in first!</p>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}

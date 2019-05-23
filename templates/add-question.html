@@ -1,16 +1,22 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div class="new_question">
-         <form action="/add-question" method="post">
-             <div>
-                 <input id="titlebox" name="title" required placeholder="Title:">
-             </div>
-             <div>
-                 <textarea id="message" name="message" rows="10" cols="80" required placeholder="Write your question"></textarea>
-             </div>
-             <div>
-                  <button class="button" id="submit" type="submit" name="submit">Submit</button>
-             </div>
-         </form>
-    </div>
+    {% if session %}
+        <div class="new_question">
+             <form action="/add-question" method="post">
+                 <div>
+                     <input id="titlebox" name="title" required placeholder="Title:">
+                 </div>
+                 <div>
+                     <textarea id="message" name="message" rows="10" cols="80" required placeholder="Write your question"></textarea>
+                 </div>
+                 <div>
+                      <button class="button" id="submit" type="submit" name="submit">Submit</button>
+                 </div>
+             </form>
+        </div>
+    {% else %}
+        <div class="error_msg" id="return_login">
+            <p>Please log in first!</p>
+        </div>
+    {% endif %}
 {% endblock %}

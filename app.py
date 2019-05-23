@@ -25,8 +25,8 @@ def show_limited_question():
 def view_question(question_id):
     data_manager.view_counter(question_id)
     selected_question = data_manager.get_selected_question(question_id)
-    answers = data_manager.get_answers()
-    comments = data_manager.get_comments()
+    answers = data_manager.get_ordered_data('answer', 'submission_time', 'ASC')
+    comments = data_manager.get_ordered_data('comment', 'submission_time', 'ASC')
     return render_template('question.html', question=selected_question, answers=answers, comments=comments, title='Question')
 
 
@@ -37,6 +37,7 @@ def view_question_post(question_id):
         'vote_number': 0,
         'question_id': question_id,
         'message': escape(request.form['message']),
+        'user_id': session['user_id']
     }
     data_manager.add_new_answer(new_answer)
     return redirect(request.url)
@@ -53,7 +54,8 @@ def add_question():
             'view_number': 0,
             'vote_number': 0,
             'title': escape(request.form['title']),
-            'message': escape(request.form['message'])
+            'message': escape(request.form['message']),
+            'user_id': session['user_id']
         }
         data_manager.add_new_question(new_question)
         return redirect('/')
@@ -87,7 +89,7 @@ def edit_question(question_id):
 @app.route('/result', methods=['GET', 'POST'])
 def show_result():
     if request.method == 'POST':
-        questions = data_manager.get_questions()
+        questions = data_manager.get_ordered_data('question', 'submission_time', 'DESC')
         result = data_manager.get_result(escape(request.form['search']))
         return render_template("result.html", results=result, title='Results', questions=questions)
 
@@ -100,7 +102,8 @@ def add_comment(question_id):
             'question_id': question_id,
             'message': escape(request.form['message']),
             'submission_time': util.get_current_datetime(),
-            'edited_number': 0
+            'edited_number': 0,
+            'user_id': session['user_id']
         }
         data_manager.add_new_comment(new_comment)
         return redirect('/question/' + question_id)
@@ -128,13 +131,14 @@ def login():
         password = request.form['password']
         error = error_handle.check_login(username=username, password=password)
         if error is False:
-            session['username'] = request.form['username']
+            session['username'] = username
+            session['user_id'] = util.get_user_id_session()
             return redirect(url_for('show_limited_question'))
         else:
             error_message = 'Invalid username / password!'
             return render_template('login.html', message=error_message)
 
-    return render_template('login.html')
+    return render_template('login.html', title='No Lollygaggin')
 
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -146,7 +150,7 @@ def register():
         email = request.form['email']
         errors = error_handle.check_error(username=username, password=password, confirm_password=confirm_password, email=email)
         if errors is not None:
-            return render_template('register.html', error=errors) #TODO fix this shit
+            return render_template('register.html', error=errors)
         hashed_pass = util.hash_pass(password)
         data_manager.save_user_data(username=username, hashed_pass=hashed_pass, email=email)
         return redirect(url_for('login'))
@@ -156,6 +160,7 @@ def register():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    session.pop('user_id', None)
     return redirect(url_for('show_limited_question'))
 
 

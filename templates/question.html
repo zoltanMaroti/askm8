@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
     <div class="question_page">
+        <!--Question Section-->
         <div id="question">
             <div id="q_main">
                 <h2>{{ question.title }}</h2>
@@ -15,20 +16,28 @@
                 </div>
             </div>
             <div id="buttons">
-                <div>
-                    <a href="/question/{{ question.id }}/{{ question.vote_number }}"><button type="button", class="button", name="upvote">Upvote</button> </a>
-                </div>
-                <div>
-                   <a href="/question/{{question.id}}/edit"><button class="button">Edit</button></a>
-                </div>
-                <div>
-                    <a href="/question/{{ question.id }}/delete"><button type="submit" class="button" name="delete">Delete</button></a>
-                </div>
-                <div>
-                    <a href="/question/{{ question.id }}/new-comment"><button class="button">Comment</button></a>
-                </div>
+                {% if session %}
+                    <div>
+                        <a href="/question/{{ question.id }}/{{ question.vote_number }}"><button type="button" class="button" name="upvote">Upvote</button> </a>
+                    </div>
+                    <div>
+                        <a href="/question/{{ question.id }}/new-comment"><button class="button">Comment</button></a>
+                    </div>
+                    {% if session.user_id == question.user_id %}
+                        <div>
+                           <a href="/question/{{question.id}}/edit"><button class="button">Edit</button></a>
+                        </div>
+                        <div>
+                            <a href="/question/{{ question.id }}/delete"><button type="submit" class="button" name="delete">Delete</button></a>
+                        </div>
+                    {% else %}
+                        <div></div>
+                        <div></div>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
+        <!--Comment Section-->
         <div id="comments">
             {% for comment in comments %}
                 {% if comment.question_id == question.id %}
@@ -43,6 +52,7 @@
                 {% endif %}
             {% endfor %}
         </div>
+        <!--Answer Section-->
         <div id="answers">
                 {% for answer in answers %}
                     {% if answer.question_id == question.id -%}
@@ -54,33 +64,27 @@
                                 <p> &#x1f44d;: {{ answer.vote_number }} &#x1F557;: {{ answer.submission_time }}</p>
                             </div>
                             <div>
-                            <a href="/question/{{question.id}}/{{ answer.id }}/edit"><button class="button">edit</button></a>
-                            <a href="{{ question.id }}/{{ answer.id }}/{{ answer.vote_number }}"><button class="button">upvote</button></a>
+                                {% if session %}
+                                    <a href="{{ question.id }}/{{ answer.id }}/{{ answer.vote_number }}"><button class="button">upvote</button></a>
+                                {% endif %}
+                                {% if session.user_id == answer.user_id %}
+                                    <a href="/question/{{question.id}}/{{ answer.id }}/edit"><button class="button">edit</button></a>
+                                {% endif %}
                         </div>
                         </div>
                     {%- endif %}
                 {% endfor %}
-            <form method="post">
-                <div id="textarea">
-                    <textarea id="message" name="message" rows="5" cols="60" required placeholder="Answer this question"></textarea>
-                </div>
-                <div>
-                    <button class="button" id="submit" type="submit" name="submit">Submit</button>
-                </div>
-            </form>
+            {% if session %}
+                <form method="post">
+                    <div id="textarea">
+                        <textarea id="message" name="message" rows="5" cols="60" required placeholder="Answer this question"></textarea>
+                    </div>
+                    <div>
+                        <button class="button" id="submit" type="submit" name="submit">Submit</button>
+                    </div>
+                </form>
+            {% endif %}
         </div>
-{#        <div id="post_answer">#}
-{#            <form method="post">#}
-{#                <div id="textarea">#}
-{#                    <textarea id="message" name="message" rows="5" cols="80" required placeholder="Answer this question"></textarea>#}
-{#                </div>#}
-{#                <div>#}
-{#                    <button class="button" id="submit" type="submit" name="submit">Submit</button>#}
-{#                </div>#}
-{#            </form>#}
-{#        </div>#}
     </div>
-
-
 
 {% endblock %}

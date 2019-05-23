@@ -66,12 +66,11 @@ def last_questions(cursor, amount):
     return last_question
 
 
-
 @connection.connection_handler
 def add_new_question(cursor, detail):
     cursor.execute("""
-                   INSERT INTO question (submission_time, view_number, vote_number, title, message)
-                   VALUES (%(submission_time)s, %(view_number)s, %(vote_number)s, %(title)s, %(message)s)
+                   INSERT INTO question (submission_time, view_number, vote_number, title, message, user_id)
+                   VALUES (%(submission_time)s, %(view_number)s, %(vote_number)s, %(title)s, %(message)s, %(user_id)s)
                    """,
                    detail)
 
@@ -79,8 +78,8 @@ def add_new_question(cursor, detail):
 @connection.connection_handler
 def add_new_answer(cursor, detail):
     cursor.execute("""
-                    INSERT INTO answer (submission_time, vote_number, question_id, message) 
-                    VALUES (%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s)
+                    INSERT INTO answer (submission_time, vote_number, question_id, message, user_id) 
+                    VALUES (%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s, %(user_id)s)
                     """,
                    detail)
 
@@ -88,8 +87,8 @@ def add_new_answer(cursor, detail):
 @connection.connection_handler
 def add_new_comment(cursor, detail):
     cursor.execute("""
-                    INSERT INTO comment (question_id, message, submission_time, edited_number)
-                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s);
+                    INSERT INTO comment (question_id, message, submission_time, edited_number, user_id)
+                    VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_number)s, %(user_id)s);
                     """, detail)
 
 
@@ -209,3 +208,13 @@ def get_emails(cursor):
                     """)
     emails = cursor.fetchall()
     return emails
+
+
+@connection.connection_handler
+def get_user_id(cursor, username):
+    cursor.execute("""
+                    SELECT id FROM users
+                    WHERE username = %(username)s;
+                    """, {'username': username})
+    user_id = cursor.fetchone()
+    return user_id
