@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-    {% if session.user_id == question.user_id %}
+    {% if session %}
         <div id="new_comment">
             <div id="comment_info">
                 <div>
@@ -18,10 +18,6 @@
                     </div>
                 </form>
             </div>
-        </div>
-    {% elif session %}
-        <div class="error_msg" id="no_access">
-            <p>U can`t edit this question</p>
         </div>
     {% else %}
         <div class="error_msg" id="return_login">
