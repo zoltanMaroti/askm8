@@ -14,7 +14,7 @@
                 </div>
             </form>
         </div>
-    {% elif session %}
+    {% elif session.user_id != question.user_id %}
         <div class="error_msg" id="no_access">
             <p>U can`t edit this question</p>
         </div>
