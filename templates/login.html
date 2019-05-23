@@ -1,16 +1,15 @@
 {% extends 'layout.html' %}
 {% block content %}
-
-    <div id="login">
-        <form action="/login" method="post">
+    <div class="login_page">
+        <form action="/login" method="post" class="login_form">
             <div>
                 <input type="text" id="login_user" name="username" placeholder="username" required>
             </div>
             <div>
                 <input type="password" id="login_password" name="password" placeholder="password" required>
             </div>
-            <div>
-                <button class="button" id="submit" type="submit" name="submit">Log in</button>
+            <div class="buttons">
+                <button class="button" id="login" type="submit" name="submit">Log in</button>
                 <button class="button" id="register"><a href="/register">Register</a></button>
             </div>
         </form>
@@ -18,5 +17,4 @@
             {{ message }}
         {% endif %}
     </div>
-
 {% endblock %}
