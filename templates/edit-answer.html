@@ -29,7 +29,7 @@
         {% endif %}
     {% else %}
         <div class="error_msg" id="return_login">
-            <p>Please log in first!</p>
+            <a href="{{ url_for('login') }}">Please log in first!</a>
         </div>
     {% endif %}
 {% endblock %}

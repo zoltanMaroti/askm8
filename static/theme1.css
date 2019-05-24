@@ -421,3 +421,12 @@ body a, p {
 .error_msg {
     text-align: center;
 }
+
+.error_msg a{
+    text-decoration: none;
+    padding: 10px;
+}
+
+.error_msg a:hover{
+    color: #edc139;
+}
